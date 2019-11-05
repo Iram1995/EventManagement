@@ -1,0 +1,164 @@
+﻿@model EventManagement.Models.Event
+
+@{
+    ViewBag.Title = "GetEventDetail";
+}
+<script src="~/Scripts/moment.js"></script>
+<script src="~/Scripts/moment.min.js"></script>
+<script src="~/Scripts/jquery-3.4.1.js"></script>
+<script src="~/Scripts/jquery.validate.js"></script>
+<script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+<script src="~/Scripts/bootstrap-datetimepicker.min.js"></script>
+<link href="~/Content/bootstrap-datetimepicker.css" rel="stylesheet" />
+<link href="~/Content/bootstrap-datetimepicker.min.css" rel="stylesheet" />
+<script src="~/Scripts/bootstrap-datetimepicker.min.js"></script>
+<link rel="stylesheet" type="text/css" href="~/Content/form.css">
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">
+
+<style>
+    dt {
+   
+    text-align: left !important;
+}
+
+</style>
+<h2>GetEventDetail</h2>
+
+<div>
+    <h4>Event</h4>
+    <hr />
+    <dl class="dl-horizontal">
+       
+
+        <dt>
+            @Html.DisplayNameFor(model => model.refNo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.refNo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.cnic)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.cnic)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.cellNo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.cellNo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MS)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MS)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.createdDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.createdDate)
+        </dd>
+
+        
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EventDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EventDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.notes)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.notes)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.noOfPeople)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.noOfPeople)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.perHead)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.perHead)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.totalAmount)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.totalAmount)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.grandTotal)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.grandTotal)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.advance)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.advance)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Received)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Received)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.balance)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.balance)
+        </dd>
+
+    </dl>
+</div>
+<hr />
+@*<div class="form-group">
+        <div class="custom-control custom-checkbox">
+            <input type="checkbox" class="custom-control-input" id="customControlInline">
+            <label class="custom-control-label" for="customControlInline">Remember me</label>
+        </div>
+    </div>
+*@
+<div class="d-flex justify-content-center mt-3 login_container">
+    <button onclick="window.print();"  name="button" id="btnSave" class="btn login_btn">PRINT</button>
+    </div>

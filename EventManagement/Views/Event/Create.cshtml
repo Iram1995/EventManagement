@@ -1,0 +1,737 @@
+﻿@model EventManagement.ViewModel.CreateEventViewModel
+@*{
+        ViewBag.Title = "Create";
+    }
+    <style>
+        label {
+        font-weight: bold;
+        width: 33%;}
+        .form-group {
+            padding-bottom: 2%;
+        }
+
+    </style>
+    <script src="~/Scripts/moment.js"></script>
+    <script src="~/Scripts/moment.min.js"></script>
+    <script src="~/Scripts/jquery-3.4.1.js"></script>
+    <script src="~/Scripts/jquery.validate.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+    <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+    <script src="~/Scripts/bootstrap-datetimepicker.min.js"></script>
+    <link href="~/Content/bootstrap-datetimepicker.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap-datetimepicker.min.css" rel="stylesheet" />
+    <script src="~/Scripts/bootstrap-datetimepicker.min.js"></script>
+
+
+    @using (Ajax.BeginForm("CreateNewEvent", "Event",
+                                                new AjaxOptions
+                                                {
+                                                    HttpMethod = "POST",
+
+                                                    OnSuccess = "Success",
+                                                    OnFailure = "OnFailure",
+
+                                                }))
+    {
+        <div class=" form-horizontal">
+            <h4>Create Event</h4>
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group">
+                @Html.Label("Ref No", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-6">
+                    @Html.EditorFor(model => model.refNo, new { htmlAttributes = new { @class = "form-control", required = "required" } })
+                    @Html.ValidationMessageFor(model => model.refNo, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.Label("CNIC", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-6">
+                    @Html.EditorFor(model => model.cnic, new { htmlAttributes = new { @class = "form-control", required = "required" } })
+                    @Html.ValidationMessageFor(model => model.cnic, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.Label("Cell No", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-6">
+                    @Html.EditorFor(model => model.cellNo, new { htmlAttributes = new { @class = "form-control", required = "required" } })
+                    @Html.ValidationMessageFor(model => model.cellNo, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.Label("M/S", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-6">
+                    @Html.EditorFor(model => model.MS, new { htmlAttributes = new { @class = "form-control", required = "required" } })
+                    @Html.ValidationMessageFor(model => model.MS, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.Label("Event Date", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-6">
+                    @Html.TextBoxFor(model => model.EventDate, new { @class = "form-control",@id = "", @type = "Date", required = "required" })
+                    @Html.ValidationMessageFor(model => model.EventDate, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+
+
+
+            <div class="form-group">
+                @Html.Label("No of People", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-6">
+                    @Html.EditorFor(model => model.noOfPeople, new { htmlAttributes = new { required = "required", @class = "form-control", @id = "noOfPeople" } })
+                    @Html.ValidationMessageFor(model => model.noOfPeople, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.Label("Per Head", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-6">
+                    @Html.EditorFor(model => model.perHead, new { htmlAttributes = new { @class = "form-control", @id = "perHead", required = "required" } })
+                    @Html.ValidationMessageFor(model => model.perHead, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.Label("Total Amount", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-6">
+                    @Html.EditorFor(model => model.totalAmount, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly", @id = "totalAmount" } })
+                    @Html.ValidationMessageFor(model => model.totalAmount, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.Label("Tax (5%)", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-6">
+                    @Html.EditorFor(model => model.Tax, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly", @id = "tax" } })
+                    @Html.ValidationMessageFor(model => model.Tax, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.Label("Grand Total", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-6">
+                    @Html.EditorFor(model => model.grandTotal, new { htmlAttributes = new { @class = "form-control", @id = "grandTotal", required = "required" } })
+                    @Html.ValidationMessageFor(model => model.grandTotal, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.Label("Advance (20%)", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-6">
+                    @Html.EditorFor(model => model.advance, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly", @id = "advance" } })
+                    @Html.ValidationMessageFor(model => model.advance, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.Label("Received", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-6">
+                    @Html.EditorFor(model => model.Received, new { htmlAttributes = new { @class = "form-control", @id = "received", required = "required" } })
+                    @Html.ValidationMessageFor(model => model.Received, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.Label("Balance", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-6">
+                    @Html.EditorFor(model => model.balance, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly", @id = "balance" } })
+                    @Html.ValidationMessageFor(model => model.balance, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.Label("Notes", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-6">
+                    @Html.TextAreaFor(model => model.notes, new { @class = "form-control", rows = 5, col = 40 })
+                    @Html.ValidationMessageFor(model => model.notes, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div id="divEmp"></div>
+            <table id="tblServices" class="table" cellpadding="0" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th style="width:150px">Price</th>
+                        <th style="width:150px">Service Name</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.service)
+                    {
+                        <tr>
+                            <td>@item.cost</td>
+                            <td>@item.service</td>
+                            <td><input type="button" value="Remove" onclick="Remove(this)" /></td>
+                        </tr>
+                    }
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td><input type="number" id="txtPrice" /></td>
+                        <td><input type="text" id="txtName" /></td>
+                        <td><input type="button" id="btnAdd" value="Add" /></td>
+
+                    </tr>
+                </tfoot>
+            </table>
+            <br />
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-6">
+                    <input type="submit" value="Create" id="btnSave" class="btn btn-default" />
+                </div>
+            </div>
+        </div>
+                @Html.HiddenFor(m => m.eventId)
+    }
+
+    <div>
+        @Html.ActionLink("Back to List", "GetEvents")
+    </div>
+    <script type="text/javascript">
+       /* $(function () {
+            $('#datetimepicker1').datetimepicker();
+        });*/
+        function Success(event) {
+                    debugger;
+                    if (eventId != 0) {
+                        $.ajax({
+                            type: "POST",
+                            url: "/Event/AddServicestoEvents",
+                            data: { services: customers, eventId: event },
+                            dataType: "json",
+                            success: function (response) {
+                                window.location = "/Event/GetEvents";
+                            },
+                            error: function (response) {
+                                window.location = "/Event/GetEvents";
+
+                            }
+                        });
+                    }
+                    else {
+                        location.reload();
+
+                    }
+                }
+
+                var serviceSum = 0;
+            $("body").on("click", "#btnAdd", function () {
+                //Reference the Name and Country TextBoxes.
+                var txtPrice = $("#txtPrice");
+                var txtName = $("#txtName");
+
+                //Get the reference of the Table's TBODY element.
+                var tBody = $("#tblServices > TBODY")[0];
+
+                //Add Row.
+                var row = tBody.insertRow(-1);
+
+                //Add Name cell.
+                var cell = $(row.insertCell(-1));
+                cell.html(txtPrice.val());
+                serviceSum = serviceSum + parseInt(txtPrice.val());
+                calculateValues();
+                //Add Country cell.
+                cell = $(row.insertCell(-1));
+                cell.html(txtName.val());
+
+                //Add Button cell.
+                cell = $(row.insertCell(-1));
+                var btnRemove = $("<input />");
+                btnRemove.attr("type", "button");
+                btnRemove.attr("onclick", "Remove(this);");
+                btnRemove.val("Remove");
+                cell.append(btnRemove);
+
+                //Clear the TextBoxes.
+                txtPrice.val("");
+                txtName.val("");
+            });
+
+            function Remove(button) {
+                debugger;
+                //Determine the reference of the Row using the Button.
+                var row = $(button).closest("TR");
+                var name = $("TD", row).eq(0).html();
+
+                if (confirm("Do you want to delete: " + name)) {
+                    //Get the reference of the Table.
+                    var table = $("#tblServices")[0];
+                    serviceSum = serviceSum - parseInt(name);
+                    //Delete the Table row using it's Index.
+                    table.deleteRow(row[0].rowIndex);
+                    calculateValues();
+                }
+            };
+            var customer = {};
+            var customers = new Array();
+            $("body").on("click", "#btnSave", function () {
+                //Loop through the Table rows and build a JSON array.
+
+                $("#tblServices TBODY TR").each(function () {
+                    var row = $(this);
+
+                    customer.price = row.find("TD").eq(0).html();
+                    customer.name = row.find("TD").eq(1).html();
+                    customer.Id = 0;
+                    customers.push(customer);
+                });
+
+                //Send the JSON array to Controller using AJAX.
+
+            });
+            var totalAmount = 0;
+            var tax = 0;
+            var grandTotal = 0;
+            var advance = 0;
+            var received = 0;
+            var balance = 0;
+            var serviceId = 0;
+            var noOfPeople = 0;
+            var perHead = 0;
+
+            $(document).ready(function () {
+                $('#totalAmount').val(0);
+                $('#tax').val(0);
+                $('#grandTotal').val(0);
+                $('#advance').val(0);
+                $('#received').val(0);
+                $('#balance').val(0);
+
+                $('#noOfPeople').val(0);
+                $('#perHead').val(0);
+            })
+            //totalAmount, tax, grandTotal, advance received balance
+            $('#noOfPeople,#perHead,#received').bind("keypress change", function () {
+                calculateValues();
+            });
+            function calculateValues() {
+
+                debugger;
+                noOfPeople = $('#noOfPeople').val() == undefined ? 0 : $('#noOfPeople').val();
+                perHead = $('#perHead').val() == undefined ? 0 : $('#perHead').val();
+                totalAmount=noOfPeople*perHead;
+                $('#totalAmount').val(totalAmount);
+                $('#tax').val(0.05 * totalAmount);
+                grandTotal = totalAmount + serviceSum;
+                advance = 0.2 * grandTotal;
+                $('#advance').val(advance);
+                $('#grandTotal').val(grandTotal);
+                received=$('#received').val();
+                $('#balance').val(grandTotal - received);
+           }
+    </script>*@
+<style>
+        label {
+        font-weight: bold;
+        width: 33%;}
+    </style>
+@{
+    ViewBag.Title = "Create Event";
+}
+<script src="~/Scripts/moment.js"></script>
+<script src="~/Scripts/moment.min.js"></script>
+<script src="~/Scripts/jquery-3.4.1.js"></script>
+<script src="~/Scripts/jquery.validate.js"></script>
+<script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+<script src="~/Scripts/bootstrap-datetimepicker.min.js"></script>
+<link href="~/Content/bootstrap-datetimepicker.css" rel="stylesheet" />
+<link href="~/Content/bootstrap-datetimepicker.min.css" rel="stylesheet" />
+<script src="~/Scripts/bootstrap-datetimepicker.min.js"></script>
+<link rel="stylesheet" type="text/css" href="~/Content/form.css">
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-12">
+
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+
+        <div class="container h-100">
+            <div class="d-flex justify-content-center h-100">
+                <div class="user_card">
+                    <div class="d-flex justify-content-center">
+                        <div class="brand_logo_container">
+                            <img src="https://cdn.freebiesupply.com/logos/large/2x/pinterest-circle-logo-png-transparent.png" class="brand_logo" alt="Logo">
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-center form_container">
+                        @using (Ajax.BeginForm("CreateNewEvent", "Event",
+                                          new AjaxOptions
+                                          {
+                                              HttpMethod = "POST",
+
+                                              OnSuccess = "Success",
+                                              OnFailure = "OnFailure",
+
+                                          }))
+                        {
+                            <div class="input-group mb-3">
+                                @Html.Label("Ref No ", htmlAttributes: new { @class = "" })
+
+
+                                <div class="input-group-append">
+                                    <span class="input-group-text"></span>
+                                </div>
+
+                                    @Html.EditorFor(model => model.refNo, new { htmlAttributes = new { @class = "form-control", required = "required" } })
+                                    @Html.ValidationMessageFor(model => model.refNo, "", new { @class = "text-danger" })
+                                    </div>
+                            <div class="input-group mb-3">
+                                @Html.Label("CNIC ", htmlAttributes: new { @class = "" })
+
+
+                                <div class="input-group-append">
+                                    <span class="input-group-text"></span>
+                                </div>
+
+                                    @Html.EditorFor(model => model.cnic, new { htmlAttributes = new { @class = "form-control", required = "required" } })
+                                    @Html.ValidationMessageFor(model => model.cnic, "", new { @class = "text-danger" })
+
+                                                        </div>
+                            <div class="input-group mb-3">
+                                @Html.Label("Cell No ", htmlAttributes: new { @class = "" })
+
+
+                                <div class="input-group-append">
+                                    <span class="input-group-text"></span>
+                                </div>
+
+
+                                        @Html.EditorFor(model => model.cellNo, new { htmlAttributes = new { @class = "form-control", required = "required" } })
+                                        @Html.ValidationMessageFor(model => model.cellNo, "", new { @class = "text-danger" })
+
+                                </div>
+                            <div class="input-group mb-3">
+                                @Html.Label("M/S ", htmlAttributes: new { @class = "" })
+
+
+                                <div class="input-group-append">
+                                    <span class="input-group-text"></span>
+                                </div>
+                                @Html.EditorFor(model => model.MS, new { htmlAttributes = new { @class = "form-control", required = "required" } })
+                                @Html.ValidationMessageFor(model => model.MS, "", new { @class = "text-danger" })                         
+                               </div>
+                            <div class="input-group mb-3">
+                                @Html.Label("Event Date ", htmlAttributes: new { @class = "" })
+
+
+                                <div class="input-group-append">
+                                    <span class="input-group-text"></span>
+                                </div>
+
+                                    @Html.TextBoxFor(model => model.EventDate, new { @class = "form-control", @id = "", @type = "Date", required = "required" })
+                                    @Html.ValidationMessageFor(model => model.EventDate, "", new { @class = "text-danger" })
+                                                            </div>
+                            <div class="input-group mb-3">
+                                @Html.Label("No of people ", htmlAttributes: new { @class = "" })
+
+
+                                <div class="input-group-append">
+                                    <span class="input-group-text"></span>
+                                </div>
+                                @Html.EditorFor(model => model.noOfPeople, new { htmlAttributes = new { required = "required", @class = "form-control", @id = "noOfPeople" } })
+                                @Html.ValidationMessageFor(model => model.noOfPeople, "", new { @class = "text-danger" })                            </div>
+                            <div class="input-group mb-3">
+                                @Html.Label("Per Head ", htmlAttributes: new { @class = "" })
+
+
+                                <div class="input-group-append">
+                                    <span class="input-group-text"></span>
+                                </div>
+                                @Html.EditorFor(model => model.perHead, new { htmlAttributes = new { @class = "form-control", @id = "perHead", required = "required" } })
+                                @Html.ValidationMessageFor(model => model.perHead, "", new { @class = "text-danger" })                            </div>
+
+                            <div class="input-group mb-3">
+                                @Html.Label("Total amount ", htmlAttributes: new { @class = "" })
+
+
+                                <div class="input-group-append">
+                                    <span class="input-group-text"></span>
+                                </div>
+                                @Html.EditorFor(model => model.totalAmount, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly", @id = "totalAmount" } })
+                                @Html.ValidationMessageFor(model => model.totalAmount, "", new { @class = "text-danger" })                            </div>
+
+                            <div class="input-group mb-3">
+                                @Html.Label("Tax (5%) ", htmlAttributes: new { @class = "" })
+
+                                <div class="input-group-append">
+                                    <span class="input-group-text"></span>
+                                </div>
+
+                                @Html.EditorFor(model => model.Tax, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly", @id = "tax" } })
+                                @Html.ValidationMessageFor(model => model.Tax, "", new { @class = "text-danger" })
+                             </div>
+
+                            <div class="input-group mb-3">
+                                @Html.Label("Grand Total ", htmlAttributes: new { @class = "" })
+
+
+                                <div class="input-group-append">
+                                    <span class="input-group-text"></span>
+                                </div>
+                                @Html.EditorFor(model => model.grandTotal, new { htmlAttributes = new { @class = "form-control", @id = "grandTotal", required = "required" } })
+                                @Html.ValidationMessageFor(model => model.grandTotal, "", new { @class = "text-danger" })
+                            </div>
+                            <div class="input-group mb-3">
+                                @Html.Label("Advance (20%)", htmlAttributes: new { @class = "" })
+
+
+                                <div class="input-group-append">
+                                    <span class="input-group-text"></span>
+                                </div>
+                                @Html.EditorFor(model => model.advance, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly", @id = "advance" } })
+                                @Html.ValidationMessageFor(model => model.advance, "", new { @class = "text-danger" })                            </div>
+                            <div class="input-group mb-3">
+                                @Html.Label("Received ", htmlAttributes: new { @class = "" })
+
+
+                                <div class="input-group-append">
+                                    <span class="input-group-text"></span>
+                                </div>
+                                @Html.EditorFor(model => model.Received, new { htmlAttributes = new { @class = "form-control", @id = "received", required = "required" } })
+                                @Html.ValidationMessageFor(model => model.Received, "", new { @class = "text-danger" })                            </div>
+                            <div class="input-group mb-3">
+                                @Html.Label("Balance ", htmlAttributes: new { @class = "" })
+
+
+                                <div class="input-group-append">
+                                    <span class="input-group-text"></span>
+                                </div>
+                                @Html.EditorFor(model => model.balance, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly", @id = "balance" } })
+                                @Html.ValidationMessageFor(model => model.balance, "", new { @class = "text-danger" })                            </div>
+                            <div class="input-group mb-3">
+                                @Html.Label("Notes ", htmlAttributes: new { @class = "" })
+
+
+                                <div class="input-group-append">
+                                    <span class="input-group-text"></span>
+                                </div>
+
+                                    @Html.TextAreaFor(model => model.notes, new { @class = "form-control", rows = 5, col = 40 })
+                                    @Html.ValidationMessageFor(model => model.notes, "", new { @class = "text-danger" })
+
+                                                            </div>
+
+                            <br />
+
+                            <div class="input-group mb-3">
+                                <div id="divEmp"></div>
+                                <table id="tblServices" class="table" cellpadding="0" cellspacing="0">
+                                    <thead>
+                                        <tr>
+                                            <th style="width:150px">Price</th>
+                                            <th style="width:150px">Service Name</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var item in Model.service)
+                                        {
+                                            <tr>
+                                                <td>@item.cost</td>
+                                                <td>@item.service</td>
+                                                <td><input type="button" value="Remove" onclick="Remove(this)" /></td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                    <tfoot>
+                                        <tr>
+                                            <td><input type="number" id="txtPrice" /></td>
+                                            <td><input type="text" id="txtName" /></td>
+                                            <td><input type="button" id="btnAdd" value="Add" /></td>
+
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                            </div>
+                            <hr />
+                            @*<div class="form-group">
+                                    <div class="custom-control custom-checkbox">
+                                        <input type="checkbox" class="custom-control-input" id="customControlInline">
+                                        <label class="custom-control-label" for="customControlInline">Remember me</label>
+                                    </div>
+                                </div>
+                            *@
+                            <div class="d-flex justify-content-center mt-3 login_container">
+                                <button type="submit" name="button" id="btnSave" class="btn login_btn">SUBMIT</button>
+                            </div>
+                        }
+                    </div>
+
+                    @*<div class="mt-4">
+                            <div class="d-flex justify-content-center links">
+                                Don't have an account? <a href="/Home/About" class="ml-2">Sign Up</a>
+                            </div>
+                            <div class="d-flex justify-content-center links">
+                                <a href="#">Forgot your password?</a>
+                            </div>
+                        </div>*@
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    var customer = {};
+    var customers = new Array();
+  function Success(event) {
+    
+      $("#tblServices TBODY tr").each(function () {
+          var row = $(this);
+          debugger;
+          customer.price = row.find("td").eq(0).html();
+          customer.name = row.find("td").eq(1).html();
+         
+          customers.push(customer);
+          customer = {};
+      });
+
+                if (event != 0) {
+                    $.ajax({
+                        type: "POST",
+                        url: "/Event/AddServicestoEvents",
+                        data: { services: customers, eventId: event },
+                        dataType: "json",
+                        success: function (response) {
+                            window.location = "/Event/GetEvents";
+                        },
+                        error: function (response) {
+                            window.location = "/Event/GetEvents";
+
+                        }
+                    });
+                }
+                else {
+                    location.reload();
+
+                }
+            }
+
+            var serviceSum = 0;
+        $("body").on("click", "#btnAdd", function () {
+            //Reference the Name and Country TextBoxes.
+            var txtPrice = $("#txtPrice");
+            var txtName = $("#txtName");
+
+            //Get the reference of the Table's TBODY element.
+            var tBody = $("#tblServices > TBODY")[0];
+
+            //Add Row.
+            var row = tBody.insertRow(-1);
+
+            //Add Name cell.
+            var cell = $(row.insertCell(-1));
+            cell.html(txtPrice.val());
+            serviceSum = serviceSum + parseInt(txtPrice.val());
+            calculateValues();
+            //Add Country cell.
+            cell = $(row.insertCell(-1));
+            cell.html(txtName.val());
+
+            //Add Button cell.
+            cell = $(row.insertCell(-1));
+            var btnRemove = $("<input />");
+            btnRemove.attr("type", "button");
+            btnRemove.attr("onclick", "Remove(this);");
+            btnRemove.val("Remove");
+            cell.append(btnRemove);
+
+            //Clear the TextBoxes.
+            txtPrice.val("");
+            txtName.val("");
+        });
+
+        function Remove(button) {
+            debugger;
+            //Determine the reference of the Row using the Button.
+            var row = $(button).closest("TR");
+            var name = $("TD", row).eq(0).html();
+
+            if (confirm("Do you want to delete: " + name)) {
+                //Get the reference of the Table.
+                var table = $("#tblServices")[0];
+                serviceSum = serviceSum - parseInt(name);
+                //Delete the Table row using it's Index.
+                table.deleteRow(row[0].rowIndex);
+                calculateValues();
+            }
+        };
+
+        $("body").on("click", "#btnSave", function () {
+            
+            //Loop through the Table rows and build a JSON array.
+          
+            /*$("#tblServices TBODY TR").each(function () {
+                var row = $(this);
+
+                customer.price = row.find("TD").eq(0).html();
+                customer.name = row.find("TD").eq(1).html();
+                customers.push(customer);
+            });
+            */
+            //Send the JSON array to Controller using AJAX.
+
+        });
+        var totalAmount = 0;
+        var tax = 0;
+        var grandTotal = 0;
+        var advance = 0;
+        var received = 0;
+        var balance = 0;
+        var serviceId = 0;
+        var noOfPeople = 0;
+        var perHead = 0;
+
+        $(document).ready(function () {
+            $('#totalAmount').val(0);
+            $('#tax').val(0);
+            $('#grandTotal').val(0);
+            $('#advance').val(0);
+            $('#received').val(0);
+            $('#balance').val(0);
+
+            $('#noOfPeople').val(0);
+            $('#perHead').val(0);
+        })
+        //totalAmount, tax, grandTotal, advance received balance
+        $('#noOfPeople,#perHead,#received').bind("keyup change", function () {
+            calculateValues();
+        });
+        function calculateValues() {
+
+            debugger;
+            noOfPeople = $('#noOfPeople').val() == undefined ? 0 : $('#noOfPeople').val();
+            perHead = $('#perHead').val() == undefined ? 0 : $('#perHead').val();
+            totalAmount=noOfPeople*perHead;
+            $('#totalAmount').val(totalAmount);
+            var tax = 0.05 * totalAmount;
+            $('#tax').val(tax);
+           
+            grandTotal = totalAmount + serviceSum;
+            $('#grandTotal').val(grandTotal + tax);
+            var grandTotals = $('#grandTotal').val();
+            received = $('#received').val();
+            $('#balance').val(grandTotals - received);
+            $('#advance').val(grandTotals * 0.2);
+       }
+</script>
