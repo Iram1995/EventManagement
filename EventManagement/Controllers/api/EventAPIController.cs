@@ -40,7 +40,7 @@ namespace EventManagement.Controllers.api
         }
       
         public IHttpActionResult GetUsers() {
-            var response = dbcontext.events.Select(n => new {
+            var response = dbcontext.events.Where(m=>m.isActive==true).Select(n => new {
                 n.advance,
                 n.balance,
                 n.cellNo,

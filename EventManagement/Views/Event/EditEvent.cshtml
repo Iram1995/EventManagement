@@ -1,8 +1,8 @@
 ﻿@model EventManagement.ViewModel.CreateEventViewModel
-@*{
-    ViewBag.Title = "Create";
+@{
+    ViewBag.Title = "Edit Event";
 }
-<style>
+@*<style>
     .form-group {
         padding-bottom: 2%;
     }
@@ -207,19 +207,10 @@
                 <input type="submit" value="Create" id="btnSave" class="btn btn-default" />
             </div>
         </div>
-    
-  
-
 }
-
 <div>
     Html.ActionLink("Back to List", "GetEvents")
 </div>*@
-
-
-
-
-
 <script src="~/Scripts/moment.js"></script>
 <script src="~/Scripts/moment.min.js"></script>
 <script src="~/Scripts/jquery-3.4.1.js"></script>
@@ -274,30 +265,23 @@
                     </div>
                     <div class="d-flex justify-content-center form_container">
                             @using (Ajax.BeginForm("SaveEditEvent", "Event", new AjaxOptions
-   
-                                {
-                                    HttpMethod = "POST",
-
-                                    OnSuccess = "Success",
-                                    OnFailure = "OnFailure",
-
-                                }))
                             {
-                                                        <div class="input-group mb-3">
+                                HttpMethod = "POST",
+                                OnSuccess = "Success",
+                                OnFailure = "OnFailure",
+                            }))
+
+                            {
+                                <div class="input-group mb-3">
                                 @Html.Label("Ref No ", htmlAttributes: new { @class = "" })
-
-
                                 <div class="input-group-append">
                                     <span class="input-group-text"></span>
                                 </div>
-
                                 @Html.EditorFor(model => model.refNo, new { htmlAttributes = new { @class = "form-control", required = "required" } })
                                 @Html.ValidationMessageFor(model => model.refNo, "", new { @class = "text-danger" })
                             </div>
                                     <div class="input-group mb-3">
                                         @Html.Label("CNIC ", htmlAttributes: new { @class = "" })
-
-
                                         <div class="input-group-append">
                                             <span class="input-group-text"></span>
                                         </div>
@@ -386,7 +370,6 @@
                                                             <div class="input-group mb-3">
                                                                 @Html.Label("Grand Total ", htmlAttributes: new { @class = "" })
 
-
                                                                 <div class="input-group-append">
                                                                     <span class="input-group-text"></span>
                                                                 </div>
@@ -451,19 +434,23 @@
                                                                     <tbody>
                                                                         @foreach (var item in Model.service)
                                                                         {
-                                                                            <tr>
-                                                                                <td>@item.cost</td>
-                                                                                <td>@item.service</td>
-                                                                                <td><input type="button" value="Remove" onclick="Remove(this)" /></td>
-                                                                            </tr>
+                                                                 <tr>
+                                                                <td id="cost-@item.serviceId">@item.cost</td>
+                                                                <td id="service-@item.serviceId">@item.service</td>
+                                                                <td hidden>@item.serviceId</td>
+                                                                <td><input type="button" value="Remove" onclick="Remove(this)" /></td>
+                                                                <td>  
+                                                          <input type="button" value="Edit" data-toggle="modal" data-target="EditService" id=@item.serviceId onclick="EditService(this)" /></td>
+                                                                 </tr>
                                                                         }
                                                                     </tbody>
                                                                     <tfoot>
                                                                         <tr>
                                                                             <td><input type="number" id="txtPrice" /></td>
                                                                             <td><input type="text" id="txtName" /></td>
+                                                                            <td><input type="text" hidden id="txtServiceId"/></td>
                                                                             <td><input type="button" id="btnAdd" value="Add" /></td>
-
+                                                                          
                                                                         </tr>
                                                                     </tfoot>
                                                                 </table>
@@ -480,7 +467,7 @@
                                                                 <button type="submit" name="button" id="btnSave" class="btn login_btn">SUBMIT</button>
                                                             </div>
                                                             @Html.HiddenFor(m => m.eventId)
-                        }
+                            }
                     </div>
 
                     @*<div class="mt-4">
@@ -495,8 +482,31 @@
             </div>
         </div>
     </div>
+
+
+
+</div>
+<div class="modal" tabindex="-1" role="dialog" id="EditServiceModal">
+    
 </div>
 <script type="text/javascript">
+
+    function EditService(e) {
+        debugger;
+        var serviceId=parseInt(e["id"]);
+        $.ajax({
+            type: "GET",
+            url:"/Event/EditService?Id="+serviceId,
+            success: function (data) {
+                debugger;
+                $('#EditServiceModal').html(data);
+                $('#EditServiceModal').modal('show');
+
+            },
+            error: function () {
+                alert("Dynamic content load failed.");
+            }
+        });  }
     var totalAmount = 0;
     var tax = 0;
     var grandTotal = 0;
@@ -509,7 +519,7 @@
     var serviceSum = 0;
     $('.editbtn').click(function () {
         var currentTD = $(this).parents('tr').find('td');
-        if ($(this).html() == 'Edit') {                  
+        if ($(this).html() == 'Edit') {
             $.each(currentTD, function () {
                 $(this).prop('contenteditable', true)
             });
@@ -523,15 +533,18 @@
 
     });
 
-    
+
     $(document).ready(function () {
-        serviceSum=@Model.service.Where(m => m.event_Id == Model.eventId).Count()>0?.@Model.service.Where(m => m.event_Id == Model.eventId).Sum(m=>m.cost):0;
-        calculateValues();
-     
+        getServiceSum();
+        
     });
+    function getServiceSum(){
+        serviceSum=@Model.service.Where(m => m.event_Id == Model.eventId).Count()>0?@Model.service.Where(m => m.event_Id == Model.eventId).Sum(m=>m.cost):0;
+        calculateValues();
+
+    }
     //totalAmount, tax, grandTotal, advance received balance
     $("#noOfPeople,#perHead,#received").bind("keyup change", function () {
-
         calculateValues();
     });
     function calculateValues(){
@@ -549,9 +562,6 @@
         $('#balance').val(grandTotals - received);
         $('#advance').val(grandTotals*0.2);
    }
-
-   
-
 
     $("body").on("click", "#btnAdd", function () {
         debugger;
@@ -572,11 +582,13 @@
         calculateValues();
         //Add name cell.
         cell = $(row.insertCell(-1));
+
         cell.html(txtName.val());
 
         //Add serviceId cell
         cell = $(row.insertCell(-1));
-        cell.html(textServiceId);
+        cell.innerHTML = '<input type="text"  hidden>0</input>';
+        //cell.html(textServiceId);
         //Add Button cell.editbtn
 
         cell = $(row.insertCell(-1));
@@ -585,19 +597,17 @@
         btnRemove.attr("onclick", "Remove(this);");
         btnRemove.val("Remove");
         cell.append(btnRemove);
-        var editButton=$("<input />");
+       /* var editButton=$("<input />");
             editButton.attr("type", "button");
             editButton.attr("class","editbtn");
-          
+
             editButton.val("Edit");
-            cell.append(editButton)
+            cell.append(editButton)*/
 
         //Clear the TextBoxes.
         txtPrice.val("");
         txtName.val("");
-        $("#txtServiceId").val("");
-
-
+      //  $("#txtServiceId").val("");
     });
 
     function Remove(button) {
@@ -605,7 +615,6 @@
         //Determine the reference of the Row using the Button.
         var row = $(button).closest("TR");
         var name = $("TD", row).eq(0).html();
-
         if (confirm("Do you want to delete: " + name)) {
             //Get the reference of the Table.
             var table = $("#tblServices")[0];
@@ -619,13 +628,13 @@
     var customer = {};
     var customers = new Array();
     function Success(event) {
-
+        debugger;
         $("#tblServices TBODY tr").each(function () {
             var row = $(this);
-            debugger;
+            
             customer.price = row.find("td").eq(0).html();
             customer.name = row.find("td").eq(1).html();
-
+            customer.Id = row.find("td").eq(2).html();
             customers.push(customer);
             customer = {};
         });
@@ -642,13 +651,11 @@
                 },
                 error: function (response) {
                     window.location = "/Event/GetEvents";
-
                 }
             });
         }
         else {
             location.reload();
-
         }
     }
 </script>

@@ -6,17 +6,17 @@
 
 <h2>Edit Service</h2>
 
-@using (Ajax.BeginForm("SaveEditEvent", "Edit", new AjaxOptions
+@using (Ajax.BeginForm("SaveEditService", "Event", new AjaxOptions
 
 {
     HttpMethod = "POST",
 
-    OnSuccess = "Success",
-    OnFailure = "OnFailure",
+    OnSuccess = "ServiceSuccess",
+    OnFailure = "ServiceFailure",
 
 }))
 {
-    
+
     <div class="form-horizontal">
         <h4>Services</h4>
         <hr />
@@ -38,15 +38,25 @@
                 @Html.ValidationMessageFor(model => model.cost, "", new { @class = "text-danger" })
             </div>
         </div>
-        @Html.HiddenFor(model=>model.serviceId)
+        @Html.HiddenFor(model => model.serviceId)
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
+                <input type="submit" id="submitButton" value="Save" class="btn btn-default" />
             </div>
         </div>
     </div>
 }
+<script>
+    function ServiceSuccess(response) {
+        debugger;
+        var serviceId=@Model.serviceId;
+        var arr=response.split("=");
 
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
+        $('#EditServiceModal').modal('hide');
+        $("#"+("cost-"+serviceId)).html(arr[1]);
+        $("#"+("service-"+serviceId)).html(arr[0]);
+        location.reload();
+        getServiceSum();
+    }
+</script>
+

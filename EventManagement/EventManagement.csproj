@@ -193,6 +193,10 @@
     <Compile Include="Migrations\201910311939116_EventTimeFieldRemoved.Designer.cs">
       <DependentUpon>201910311939116_EventTimeFieldRemoved.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201911171303377_isActiveFieldAddedInEventTable.cs" />
+    <Compile Include="Migrations\201911171303377_isActiveFieldAddedInEventTable.Designer.cs">
+      <DependentUpon>201911171303377_isActiveFieldAddedInEventTable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Event.cs" />
     <Compile Include="Models\DataModel.cs" />
@@ -717,6 +721,7 @@
     <Content Include="Views\Event\GetEvents.cshtml" />
     <Content Include="Views\Event\EditEvent.cshtml" />
     <Content Include="Views\Event\GetEventDetail.cshtml" />
+    <Content Include="Views\Event\EditService.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -748,6 +753,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201910311939116_EventTimeFieldRemoved.resx">
       <DependentUpon>201910311939116_EventTimeFieldRemoved.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201911171303377_isActiveFieldAddedInEventTable.resx">
+      <DependentUpon>201911171303377_isActiveFieldAddedInEventTable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

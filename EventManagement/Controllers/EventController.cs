@@ -78,6 +78,7 @@ namespace EventManagement.Controllers
                 events.Received = viewModel.Received;
                 events.advance = viewModel.advance;
                 events.balance = viewModel.balance;
+                events.isActive = true;
                 dbcontext.events.Add(events);
                 dbcontext.SaveChanges();
                 var eventId = dbcontext.events.OrderByDescending(m => m.eventId).FirstOrDefault().eventId;
@@ -96,16 +97,19 @@ namespace EventManagement.Controllers
             var response = "";
             try
             {
-                foreach (var item in services)
+                if (services != null)
                 {
-                    var service = new Services();
-                    service.cost = Convert.ToInt32(item.price);
-                    service.service = item.name;
-                    service.event_Id = eventId;
-                    service.isActive = true;
-                    dbcontext.services.Add(service);
+                    foreach (var item in services)
+                    {
+                        var service = new Services();
+                        service.cost = Convert.ToInt32(item.price);
+                        service.service = item.name;
+                        service.event_Id = eventId;
+                        service.isActive = true;
+                        dbcontext.services.Add(service);
+                    }
+                    dbcontext.SaveChanges();
                 }
-                dbcontext.SaveChanges();
                 response = "Success";
             }
             catch (Exception ex)
@@ -128,7 +132,8 @@ namespace EventManagement.Controllers
             Event viewModel = dbcontext.events.Where(m => m.eventId == id).SingleOrDefault();
             try
             {
-                dbcontext.events.Remove(viewModel);
+                viewModel.isActive = false;
+                dbcontext.Entry(viewModel).State = EntityState.Modified;
                 dbcontext.SaveChanges();
             }
             catch (Exception ex)
@@ -205,6 +210,7 @@ namespace EventManagement.Controllers
                 viewModel.refNo = events.refNo;
                 viewModel.totalAmount = events.totalAmount;
                 viewModel.balance = events.balance;
+                viewModel.isActive = true;
                 dbcontext.Entry(viewModel).State = EntityState.Modified;
                 dbcontext.SaveChanges();
 
@@ -223,17 +229,19 @@ namespace EventManagement.Controllers
         {
             var response = "";
             var dbservice = dbcontext.services.Where(m => m.event_Id == eventId).ToList();
-            foreach (var item in dbservice)
-            {
+            var removedService = dbservice.Where(m => !services.Any(c => c.Id == m.serviceId));
 
+           foreach (var item in removedService)
+            {
+                var service = dbcontext.services.Where(m => m.serviceId == item.serviceId); 
                 dbcontext.services.Remove(item);
                 dbcontext.SaveChanges();
             }
-
             dbservice = dbcontext.services.Where(m => m.event_Id == eventId).ToList();
+            var viewModel = services.Where(m => m.Id == null).ToList();
             try
             {
-                foreach (var item in services)
+                foreach (var item in viewModel)
                 {
                     var service = new Services();
                     service.cost = Convert.ToInt32(item.price);
@@ -252,6 +260,40 @@ namespace EventManagement.Controllers
             return RedirectToAction("GetEvents");
         }
 
+        public string SaveEditService(Services viewModel)
+        {
+            var response = "";
+            var service = dbcontext.services.Where(m => m.serviceId == viewModel.serviceId).FirstOrDefault();
+            try
+            { 
+               
+                service.service = viewModel.service;
+                service.cost = viewModel.cost;
+                dbcontext.Entry(service).State = EntityState.Modified;
+                dbcontext.SaveChanges();
+                response = "Success";
+            }
+            catch (Exception ex)
+            {
+                response = "Failure";
+            }
+            return service.service+"="+service.cost;
+        }
+        public ActionResult EditService(int Id)
+        {
+           
+            try
+            {
+                var service = dbcontext.services.Where(m => m.serviceId == Id).FirstOrDefault();
+                return View(service);
+
+            }
+            catch (Exception ex)
+            {
+                return RedirectToAction("GetEvents");
+            }
+           
+        }
     }
     
     public class Service {

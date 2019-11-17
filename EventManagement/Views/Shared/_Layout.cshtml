@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - My ASP.NET Application</title>
+    <title>@ViewBag.Title - Fancy Empire Marquee </title>
     @Styles.Render("~/Content/css")
         @Scripts.Render("~/bundles/modernizr")
     @Scripts.Render("~/bundles/jquery")
@@ -47,10 +47,10 @@
                     <li>@Html.ActionLink("Fancy Empire Marquee", "GetUsers", "User", new { area = "" }, new { @class = "navbar-brand" })</li>
                    @if (User.Identity.IsAuthenticated)
                    {
-                    <li>@Html.ActionLink("View users", "GetUsers", "User")</li>
-                    <li>@Html.ActionLink("Create user", "CreateUser", "User")</li>
+                    <li>@Html.ActionLink("View Users", "GetUsers", "User")</li>
+                    <li>@Html.ActionLink("Add User", "CreateUser", "User")</li>
                     <li>@Html.ActionLink("Create Event", "Create", "Event")</li>
-                    <li>@Html.ActionLink("View events", "GetEvents", "Event")</li>
+                    <li>@Html.ActionLink("View Events", "GetEvents", "Event")</li>
                     
                    @* <li style="color:white;padding-top: 15px;padding-bottom: 15px;">Dear-@User.Identity.Name</li>*@
                         <li>@Html.ActionLink("Logout", "Logout", "Account")</li>

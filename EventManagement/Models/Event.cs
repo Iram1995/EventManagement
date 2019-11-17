@@ -31,6 +31,8 @@ namespace EventManagement.Models
         public double advance { get; set; }
         public double Received { get; set; }
         public double balance { get; set; }
+        public bool isActive { get; set; }
+
         public ICollection<Services> Services{ get; set; }
     }
 }
