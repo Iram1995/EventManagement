@@ -197,6 +197,10 @@
     <Compile Include="Migrations\201911171303377_isActiveFieldAddedInEventTable.Designer.cs">
       <DependentUpon>201911171303377_isActiveFieldAddedInEventTable.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201911212044351_intFieldsChangedToString.cs" />
+    <Compile Include="Migrations\201911212044351_intFieldsChangedToString.Designer.cs">
+      <DependentUpon>201911212044351_intFieldsChangedToString.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Event.cs" />
     <Compile Include="Models\DataModel.cs" />
@@ -756,6 +760,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201911171303377_isActiveFieldAddedInEventTable.resx">
       <DependentUpon>201911171303377_isActiveFieldAddedInEventTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201911212044351_intFieldsChangedToString.resx">
+      <DependentUpon>201911212044351_intFieldsChangedToString.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

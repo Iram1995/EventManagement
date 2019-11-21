@@ -14,11 +14,11 @@ namespace EventManagement.ViewModel
      
         public int eventId { get; set; }
         [Required]
-        public int refNo { get; set; }
+        public string refNo { get; set; }
         [Required]
-        public int cnic { get; set; }
+        public string cnic { get; set; }
         [Required]
-        public int cellNo { get; set; }
+        public string cellNo { get; set; }
         [Required]
         public string MS { get; set; }
         [Required]

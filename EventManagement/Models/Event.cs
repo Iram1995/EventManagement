@@ -11,9 +11,9 @@ namespace EventManagement.Models
     {
         [Key]
         public int eventId { get; set; }
-        public int refNo { get; set; }
-        public int cnic { get; set; }
-        public int cellNo { get; set; }
+        public string refNo { get; set; }
+        public string cnic { get; set; }
+        public string cellNo { get; set; }
         public string  MS { get; set; }
         public DateTime createdDate { get; set; }
         [ForeignKey("creator")]
