@@ -1,5 +1,4 @@
-﻿@model EventManagement.Models.Event
-
+﻿@model EventManagement.ViewModel.CreateEventViewModel
 @{
     ViewBag.Title = "Event Detail";
 }
@@ -25,14 +24,17 @@
    
     text-align: left !important;
 }
-
+    th {
+    width:20%;
+    
+    }
 </style>
 
 <div>
     <h4>Event Detail</h4>
     <hr />
     <dl class="dl-horizontal">
-       
+
 
         <dt>
             @Html.DisplayNameFor(model => model.refNo)
@@ -73,8 +75,6 @@
         <dd>
             @Html.DisplayFor(model => model.createdDate)
         </dd>
-
-        
 
         <dt>
             @Html.DisplayNameFor(model => model.EventDate)
@@ -147,8 +147,32 @@
         <dd>
             @Html.DisplayFor(model => model.balance)
         </dd>
-
     </dl>
+        @if(Model.service.Count() > 0)
+        {
+            <h4>Service Details</h4>
+            <table>
+                <tr>
+                    <th>Name</th>
+                    <th>Price</th>
+
+                </tr>
+                @foreach (var item in Model.service)
+                {
+                  
+                        <tr>
+                          <td>@item.service</td>
+                          <td>@item.cost</td>
+                        </tr>
+
+                   
+
+                }
+            </table>
+
+        }
+      
+   
 </div>
 <hr />
 @*<div class="form-group">

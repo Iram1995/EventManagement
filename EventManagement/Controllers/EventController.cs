@@ -124,8 +124,34 @@ namespace EventManagement.Controllers
         }
         public ActionResult GetEventDetail(int id)
         {
-            Event viewModel=dbcontext.events.Where(m => m.eventId == id).FirstOrDefault();
-            return View(viewModel);
+            Event events=dbcontext.events.Where(m => m.eventId == id).FirstOrDefault();
+            CreateEventViewModel viewModel = new CreateEventViewModel();
+            try
+            {
+
+                viewModel.EventDate = events.EventDate;
+
+                viewModel.advance = events.advance;
+                viewModel.balance = events.balance;
+                viewModel.cellNo = events.cellNo;
+                viewModel.cnic = events.cnic;
+                viewModel.grandTotal = events.grandTotal;
+                viewModel.MS = events.MS;
+                viewModel.noOfPeople = events.noOfPeople;
+                viewModel.notes = events.notes;
+                viewModel.perHead = events.perHead;
+                viewModel.Received = events.Received;
+                viewModel.refNo = events.refNo;
+                viewModel.totalAmount = events.totalAmount;
+                viewModel.eventId = events.eventId;
+                viewModel.service = dbcontext.services.Where(m => m.event_Id == events.eventId).ToList();
+                return View(viewModel);
+            }
+
+            catch (Exception ex) {
+                return RedirectToAction("Index");
+            }
+            
         }
         public ActionResult DeleteEvent(int id)
         {

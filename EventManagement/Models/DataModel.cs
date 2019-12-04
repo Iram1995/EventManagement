@@ -24,5 +24,5 @@ namespace EventManagement.Models
         public DbSet<Services> services { get; set; }
 
     }
-    
+
 }
