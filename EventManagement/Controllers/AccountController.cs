@@ -62,8 +62,13 @@ namespace EventManagement.Controllers
         }
         public ActionResult Register()
         {
-            ViewBag.roles = dbcontext.roles.ToList();
-            ViewBag.genders = dbcontext.genders.ToList();
+            var genders = new List<SelectListItem>
+            {
+                new SelectListItem{ Text="Male", Value = "Male" },
+                new SelectListItem{ Text="Female", Value = "Female" },
+                new SelectListItem{ Text="Other", Value = "Other" },
+            };
+            ViewBag.genders = genders;
             return View();
         }
         [HttpPost]
@@ -74,12 +79,9 @@ namespace EventManagement.Controllers
                 User user = new User();
                 user.firstName = viewModel.firstName;
                 user.lastName = viewModel.lastName;
-                user.genderId = viewModel.GenderId;
-                user.roleId = viewModel.RoleId;
                 user.email = viewModel.Email;
                 user.password = viewModel.password;
-                user.roleId = viewModel.RoleId;
-                user.genderId = viewModel.GenderId;
+                user.gender = viewModel.gender;
                 dbcontext.users.Add(user);
                 dbcontext.SaveChanges();
                 return RedirectToAction("Login");
@@ -88,9 +90,6 @@ namespace EventManagement.Controllers
             {
                 return RedirectToAction("Register");
             }
-
-
-
         }
         public ActionResult Logout()
         {

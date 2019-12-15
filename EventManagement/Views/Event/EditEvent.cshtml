@@ -237,33 +237,33 @@
         padding-bottom: 2%;
     }
 </style>
+<div style="" >
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
 
-<div class="container">
-    <div class="row">
-        <div class="col-md-12">
-
+            </div>
         </div>
     </div>
-</div>
-<div class="row">
-    <div class="col-lg-12">
+    <div class="row">
+        <div class="col-lg-12">
 
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
 
-        <div class="container h-100">
-            <div class="d-flex justify-content-center h-100">
-                <div class="user_card">
-                    <div class="d-flex justify-content-center">
-                        <div class="brand_logo_container">
-                            <img src="https://cdn.freebiesupply.com/logos/large/2x/pinterest-circle-logo-png-transparent.png" class="brand_logo" alt="Logo">
+            <div class="container h-100">
+                <div class="d-flex justify-content-center h-100">
+                    <div class="user_card" id="eventTypeColor">
+                        <div class="d-flex justify-content-center">
+                            <div class="brand_logo_container">
+                                <img src="https://cdn.freebiesupply.com/logos/large/2x/pinterest-circle-logo-png-transparent.png" class="brand_logo" alt="Logo">
+                            </div>
                         </div>
-                    </div>
-                    <div class="d-flex justify-content-center form_container">
+                        <div class="d-flex justify-content-center form_container">
                             @using (Ajax.BeginForm("SaveEditEvent", "Event", new AjaxOptions
                             {
                                 HttpMethod = "POST",
@@ -273,46 +273,68 @@
 
                             {
                                 <div class="input-group mb-3">
-                                @Html.Label("Ref No ", htmlAttributes: new { @class = "" })
-                                <div class="input-group-append">
-                                    <span class="input-group-text"></span>
+                                    @Html.Label("Ref No ", htmlAttributes: new { @class = "" })
+                                    <div class="input-group-append">
+                                        <span class="input-group-text"></span>
+                                    </div>
+                                    @Html.EditorFor(model => model.refNo, new { htmlAttributes = new { @class = "form-control", required = "required" } })
+                                    @Html.ValidationMessageFor(model => model.refNo, "", new { @class = "text-danger" })
                                 </div>
-                                @Html.EditorFor(model => model.refNo, new { htmlAttributes = new { @class = "form-control", required = "required" } })
-                                @Html.ValidationMessageFor(model => model.refNo, "", new { @class = "text-danger" })
-                            </div>
+                                <div class="input-group mb-3">
+                                    @Html.Label("Event type ", htmlAttributes: new { @class = "" })
+                                    <div class="input-group-append">
+                                        <span class="input-group-text"></span>
+                                    </div>
+                                    <select class="form-control" id="eventType" name="eventType" onchange="getEventType(this.value)" required="required">
+                                        <option value="">Select event</option>
+                                        @foreach (var item in ViewBag.eventType as List<SelectListItem>)
+                                        {
+                                            if (item.Text == Model.eventType)
+                                            {
+                                                <option value="@item.Text" selected>@item.Text</option>
+                                            }
+                                            else
+                                            {
+                                                <option value="@item.Text">@item.Text</option>
+                                            }
+                                        }
+                                    </select>
+                                    @Html.ValidationMessageFor(model => model.eventType, "", new { @class = "text-danger" })
+
+                                </div>
+                                <div class="input-group mb-3">
+                                    @Html.Label("CNIC ", htmlAttributes: new { @class = "" })
+                                    <div class="input-group-append">
+                                        <span class="input-group-text"></span>
+                                    </div>
+
+                                    @Html.EditorFor(model => model.cnic, new { htmlAttributes = new { @class = "form-control", required = "required" } })
+                                    @Html.ValidationMessageFor(model => model.cnic, "", new { @class = "text-danger" })
+
+                                </div>
+                                <div class="input-group mb-3">
+                                    @Html.Label("Cell No ", htmlAttributes: new { @class = "" })
+
+
+                                    <div class="input-group-append">
+                                        <span class="input-group-text"></span>
+                                    </div>
+
+
+                                    @Html.EditorFor(model => model.cellNo, new { htmlAttributes = new { @class = "form-control", required = "required" } })
+                                    @Html.ValidationMessageFor(model => model.cellNo, "", new { @class = "text-danger" })
+
+                                </div>
                                     <div class="input-group mb-3">
-                                        @Html.Label("CNIC ", htmlAttributes: new { @class = "" })
+                                        @Html.Label("M/S ", htmlAttributes: new { @class = "" })
+
+
                                         <div class="input-group-append">
                                             <span class="input-group-text"></span>
                                         </div>
-
-                                        @Html.EditorFor(model => model.cnic, new { htmlAttributes = new { @class = "form-control", required = "required" } })
-                                        @Html.ValidationMessageFor(model => model.cnic, "", new { @class = "text-danger" })
-
+                                        @Html.EditorFor(model => model.MS, new { htmlAttributes = new { @class = "form-control", required = "required" } })
+                                        @Html.ValidationMessageFor(model => model.MS, "", new { @class = "text-danger" })
                                     </div>
-                                                        <div class="input-group mb-3">
-                                                            @Html.Label("Cell No ", htmlAttributes: new { @class = "" })
-
-
-                                                            <div class="input-group-append">
-                                                                <span class="input-group-text"></span>
-                                                            </div>
-
-
-                                                            @Html.EditorFor(model => model.cellNo, new { htmlAttributes = new { @class = "form-control", required = "required" } })
-                                                            @Html.ValidationMessageFor(model => model.cellNo, "", new { @class = "text-danger" })
-
-                                                        </div>
-                                                        <div class="input-group mb-3">
-                                                            @Html.Label("M/S ", htmlAttributes: new { @class = "" })
-
-
-                                                            <div class="input-group-append">
-                                                                <span class="input-group-text"></span>
-                                                            </div>
-                                                            @Html.EditorFor(model => model.MS, new { htmlAttributes = new { @class = "form-control", required = "required" } })
-                                                            @Html.ValidationMessageFor(model => model.MS, "", new { @class = "text-danger" })
-                                                        </div>
                                                         <div class="input-group mb-3">
                                                             @Html.Label("Event Date ", htmlAttributes: new { @class = "" })
 
@@ -337,26 +359,26 @@
                                                             @Html.ValidationMessageFor(model => model.createdDate, "", new { @class = "text-danger" })
                                                         </div>
 
-                                                            <div class="input-group mb-3">
-                                                                @Html.Label("No of people ", htmlAttributes: new { @class = "" })
+                                                        <div class="input-group mb-3">
+                                                            @Html.Label("No of people ", htmlAttributes: new { @class = "" })
 
 
-                                                                <div class="input-group-append">
-                                                                    <span class="input-group-text"></span>
-                                                                </div>
-                                                                @Html.EditorFor(model => model.noOfPeople, new { htmlAttributes = new { required = "required", @class = "form-control", @id = "noOfPeople" } })
-                                                                @Html.ValidationMessageFor(model => model.noOfPeople, "", new { @class = "text-danger" })
+                                                            <div class="input-group-append">
+                                                                <span class="input-group-text"></span>
                                                             </div>
-                                                            <div class="input-group mb-3">
-                                                                @Html.Label("Per Head ", htmlAttributes: new { @class = "" })
+                                                            @Html.EditorFor(model => model.noOfPeople, new { htmlAttributes = new { required = "required", @class = "form-control", @id = "noOfPeople" } })
+                                                            @Html.ValidationMessageFor(model => model.noOfPeople, "", new { @class = "text-danger" })
+                                                        </div>
+                                                        <div class="input-group mb-3">
+                                                            @Html.Label("Per Head ", htmlAttributes: new { @class = "" })
 
 
-                                                                <div class="input-group-append">
-                                                                    <span class="input-group-text"></span>
-                                                                </div>
-                                                                @Html.EditorFor(model => model.perHead, new { htmlAttributes = new { @class = "form-control", @id = "perHead", required = "required" } })
-                                                                @Html.ValidationMessageFor(model => model.perHead, "", new { @class = "text-danger" })
+                                                            <div class="input-group-append">
+                                                                <span class="input-group-text"></span>
                                                             </div>
+                                                            @Html.EditorFor(model => model.perHead, new { htmlAttributes = new { @class = "form-control", @id = "perHead", required = "required" } })
+                                                            @Html.ValidationMessageFor(model => model.perHead, "", new { @class = "text-danger" })
+                                                        </div>
 
                                                             <div class="input-group mb-3">
                                                                 @Html.Label("Total amount ", htmlAttributes: new { @class = "" })
@@ -431,7 +453,12 @@
                                                                 @Html.ValidationMessageFor(model => model.notes, "", new { @class = "text-danger" })
 
                                                             </div>
+                                                            <div class="input-group mb-3">
 
+                                                                <br />
+                                                                @Html.EditorFor(model => model.menus)
+                                                                @Html.ValidationMessageFor(model => model.notes, "", new { @class = "text-danger" })
+                                                            </div>
                                                             <br />
 
                                                             <div class="input-group mb-3">
@@ -447,23 +474,24 @@
                                                                     <tbody>
                                                                         @foreach (var item in Model.service)
                                                                         {
-                                                                 <tr>
-                                                                <td id="cost-@item.serviceId">@item.cost</td>
-                                                                <td id="service-@item.serviceId">@item.service</td>
-                                                                <td hidden>@item.serviceId</td>
-                                                                <td><input type="button" value="Remove" onclick="Remove(this)" /></td>
-                                                                <td>  
-                                                          <input type="button" value="Edit" data-toggle="modal" data-target="EditService" id=@item.serviceId onclick="EditService(this)" /></td>
-                                                                 </tr>
+                                                                            <tr>
+                                                                                <td id="cost-@item.serviceId">@item.cost</td>
+                                                                                <td id="service-@item.serviceId">@item.service</td>
+                                                                                <td hidden>@item.serviceId</td>
+                                                                                <td><input type="button" value="Remove" onclick="Remove(this)" /></td>
+                                                                                <td>
+                                                                                    <input type="button" value="Edit" data-toggle="modal" data-target="EditService" id=@item.serviceId onclick="EditService(this)" />
+                                                                                </td>
+                                                                            </tr>
                                                                         }
                                                                     </tbody>
                                                                     <tfoot>
                                                                         <tr>
                                                                             <td><input type="number" id="txtPrice" /></td>
                                                                             <td><input type="text" id="txtName" /></td>
-                                                                            <td><input type="text" hidden id="txtServiceId"/></td>
+                                                                            <td><input type="text" hidden id="txtServiceId" /></td>
                                                                             <td><input type="button" id="btnAdd" value="Add" /></td>
-                                                                          
+
                                                                         </tr>
                                                                     </tfoot>
                                                                 </table>
@@ -481,23 +509,23 @@
                                                             </div>
                                                             @Html.HiddenFor(m => m.eventId)
                             }
-                    </div>
+                        </div>
 
-                    @*<div class="mt-4">
-                            <div class="d-flex justify-content-center links">
-                                Don't have an account? <a href="/Home/About" class="ml-2">Sign Up</a>
-                            </div>
-                            <div class="d-flex justify-content-center links">
-                                <a href="#">Forgot your password?</a>
-                            </div>
-                        </div>*@
+                        @*<div class="mt-4">
+                                <div class="d-flex justify-content-center links">
+                                    Don't have an account? <a href="/Home/About" class="ml-2">Sign Up</a>
+                                </div>
+                                <div class="d-flex justify-content-center links">
+                                    <a href="#">Forgot your password?</a>
+                                </div>
+                            </div>*@
+                    </div>
                 </div>
             </div>
         </div>
+
+
     </div>
-
-
-
 </div>
 <div class="modal" tabindex="-1" role="dialog" id="EditServiceModal">
     
@@ -653,7 +681,8 @@
         });
 
 
-        if (event != 0) {
+        if (event != 0 && customers.length>0) {
+            debugger;
             $.ajax({
                 type: "POST",
                 url: "/Event/EditServicestoEvents",
@@ -668,7 +697,23 @@
             });
         }
         else {
-            location.reload();
+            location.href="/Event/GetEvents"
+        }
+    }
+    function getEventType(data) {
+        debugger;
+        if (data == "Day") {
+
+            document.getElementById("eventTypeColor").style.backgroundColor = "#60a3bc";
+
+              
+                
+        } else if (data == "Night") {
+            $("label").css('color', "white");
+            $("table").css('color', "white");
+            //  document.getElementsByTagName("label").style.color = "white";
+               
+            document.getElementById("eventTypeColor").style.backgroundColor = "#272929";
         }
     }
 </script>

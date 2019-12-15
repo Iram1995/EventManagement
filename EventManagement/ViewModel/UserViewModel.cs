@@ -37,14 +37,8 @@ namespace EventManagement.ViewModel
             [Required(ErrorMessage = "Please Enter Email")]
             [EmailAddress]
             public string Email { get; set; }
-
-            [Display(Name = "Role")]
-            public int RoleId { get; set; }
-
-            [Display(Name = "Gender")]
-            public int GenderId { get; set; }
-            public List<Gender> genders{get;set;}
-           public List<Role> roles { get; set; }
+            public string gender { get; set; }
+            
 
         }
     }

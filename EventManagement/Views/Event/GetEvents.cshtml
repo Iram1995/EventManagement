@@ -26,10 +26,7 @@
 <script src="~/Scripts/bootstrap-datetimepicker.min.js"></script>
     }
 <style>
-    .body-content {
-   padding-left: 21px;
-    padding-right: 226px;
-}
+   
 
 
 </style>
@@ -46,6 +43,7 @@
                      
                         <td>Event Date</td>
                        <td>Created Date</td>
+                        <td>Event Type</td>
                         <td></td>
                         <td></td>
                         <td></td>
@@ -62,6 +60,7 @@
                         <td style="text-align:center"></td>
                         <td></td>
                         <td></td>
+                        <td></td>
                     </tr>
                 </tfoot>
                 <tbody class="tbl-data"></tbody>
@@ -73,13 +72,14 @@
     $(document).ready(function (){
     
         var table = $("#tourListTable").DataTable({
-            "aaSorting": [[ 5, "asc" ]]  ,
+            "aaSorting": [[ 6, "asc" ]]  ,
             dom: '<"row"<"pull-left tbl-search btn-rounded-40"f><"pull-right tbl-search"l>>' + 'rt<"pull-left"i>p',
             "oLanguage": { "sSearch": "Search" },
             ajax: {
                 url: "/api/EventAPI/GetUsers",
                 dataSrc: ""
             },
+
             initComplete: function (data) {
                 this.api().columns('.select-filter').every(function () {
                     var column = this;
@@ -104,6 +104,15 @@
                     console.log(row);
                 });
             },
+            "fnRowCallback": function (nRow, aData, iDisplayIndex, iDisplayIndexFull) {
+                debugger;
+                if (aData.eventType=="Night") {
+                    $('td', nRow).css('background-color', '#272929');
+                    $('td', nRow).css('color', 'white');
+                } else if (aData.eventType == "Day") {
+                    $('td', nRow).css('background-color', '#60a3bc');
+                }
+            },
             sPlaceHolder: "head:before",
             columns: [
                 {
@@ -116,12 +125,12 @@
                     "bSortable": false
                 }, {
                     data: "cnic",
-                    width: "8%",
+                    width: "10%",
                     "bSortable": false
                 }, 
                  {
                      data: "eventDate",
-                     width: "5%",
+                     width: "10%",
                      render: function (data) {
                          var date = new Date(data);
                          var d = (date.getDate() < 10 ? '0' : '') + date.getDate();
@@ -133,7 +142,7 @@
                      }
                  }, {
                      data: "createdDate",
-                     width: "5%",
+                     width: "10%",
                      render: function (data) {
                          var date = new Date(data);
                          var d = (date.getDate() < 10 ? '0' : '') + date.getDate();
@@ -143,6 +152,10 @@
                          return '<span style="display:none">' + data + '</span><span>' + d + "-" + months[parseInt(m, 10) - 1] + "-" + y + '</span>';
 
                      }
+                 }, {
+                     data: "eventType",
+                     width: "10%",
+                     "bSortable": false
                  },
                 {
                     data: "eventId",

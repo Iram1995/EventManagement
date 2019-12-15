@@ -43,6 +43,13 @@
         <dd>
             @Html.DisplayFor(model => model.refNo)
         </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.eventType)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.eventType)
+        </dd>
 
         <dt>
             @Html.DisplayNameFor(model => model.cnic)
@@ -171,6 +178,31 @@
             </table>
 
         }
+    @if (Model.menusList.Count() > 0)
+    {
+        <h4>Menu Details</h4>
+            <table>
+                <tr>
+                    <th>Menu Names</th>
+                    
+
+                </tr>
+                @foreach (var item in Model.menusList)
+                {
+
+                    <tr>
+                        <td>@item.menu</td>
+                       
+                    </tr>
+
+
+
+                }
+            </table>
+
+    }
+
+
       
    
 </div>

@@ -202,11 +202,23 @@
     <Compile Include="Migrations\201911212044351_intFieldsChangedToString.Designer.cs">
       <DependentUpon>201911212044351_intFieldsChangedToString.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201912072017253_eventTypeColumnAdded.cs" />
+    <Compile Include="Migrations\201912072017253_eventTypeColumnAdded.Designer.cs">
+      <DependentUpon>201912072017253_eventTypeColumnAdded.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201912081921425_ForeignKeyRemovedFromUsersTable.cs" />
+    <Compile Include="Migrations\201912081921425_ForeignKeyRemovedFromUsersTable.Designer.cs">
+      <DependentUpon>201912081921425_ForeignKeyRemovedFromUsersTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201912101841287_menuTableAdded.cs" />
+    <Compile Include="Migrations\201912101841287_menuTableAdded.Designer.cs">
+      <DependentUpon>201912101841287_menuTableAdded.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Event.cs" />
     <Compile Include="Models\DataModel.cs" />
-    <Compile Include="Models\Gender.cs" />
-    <Compile Include="Models\Role.cs" />
+    <Compile Include="Models\Menu.cs" />
+    <Compile Include="Models\MenuEventRelationship.cs" />
     <Compile Include="Models\Services.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -764,6 +776,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201911212044351_intFieldsChangedToString.resx">
       <DependentUpon>201911212044351_intFieldsChangedToString.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201912072017253_eventTypeColumnAdded.resx">
+      <DependentUpon>201912072017253_eventTypeColumnAdded.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201912081921425_ForeignKeyRemovedFromUsersTable.resx">
+      <DependentUpon>201912081921425_ForeignKeyRemovedFromUsersTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201912101841287_menuTableAdded.resx">
+      <DependentUpon>201912101841287_menuTableAdded.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

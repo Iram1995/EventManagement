@@ -349,259 +349,283 @@
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">
-<div class="container">
-    <div class="row">
-        <div class="col-md-12">
+<div style="" >
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
 
+            </div>
         </div>
     </div>
-</div>
-<div class="row">
-    <div class="col-lg-12">
+    <div class="row">
+        <div class="col-lg-12">
 
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
 
-        <div class="container h-100">
-            <div class="d-flex justify-content-center h-100">
-                <div class="user_card">
-                    <div class="d-flex justify-content-center">
-                        <div class="brand_logo_container">
-                            <img src="https://cdn.freebiesupply.com/logos/large/2x/pinterest-circle-logo-png-transparent.png" class="brand_logo" alt="Logo">
+            <div class="container h-100">
+                <div class="d-flex justify-content-center h-100">
+                    <div class="user_card" id="eventTypeColor">
+                        <div class="d-flex justify-content-center">
+                            <div class="brand_logo_container">
+                                <img src="https://cdn.freebiesupply.com/logos/large/2x/pinterest-circle-logo-png-transparent.png" class="brand_logo" alt="Logo">
+                            </div>
                         </div>
-                    </div>
-                    <div class="d-flex justify-content-center form_container">
-                        @using (Ajax.BeginForm("CreateNewEvent", "Event",
-                                          new AjaxOptions
-                                          {
-                                              HttpMethod = "POST",
+                        <div class="d-flex justify-content-center form_container">
+                            @using (Ajax.BeginForm("CreateNewEvent", "Event",
+          new AjaxOptions
+          {
+              HttpMethod = "POST",
 
-                                              OnSuccess = "Success",
-                                              OnFailure = "OnFailure",
+              OnSuccess = "Success",
+              OnFailure = "OnFailure",
 
-                                          }))
-                        {
-                            <div class="input-group mb-3">
-                                @Html.Label("Ref No ", htmlAttributes: new { @class = "" })
+          }))
+                            {
+                                <div class="input-group mb-3">
+                                    @Html.Label("Ref No ", htmlAttributes: new { @class = "" })
 
 
-                                <div class="input-group-append">
-                                    <span class="input-group-text"></span>
-                                </div>
+                                    <div class="input-group-append">
+                                        <span class="input-group-text"></span>
+                                    </div>
 
                                     @Html.EditorFor(model => model.refNo, new { htmlAttributes = new { @class = "form-control", required = "required" } })
                                     @Html.ValidationMessageFor(model => model.refNo, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="input-group mb-3">
+                                    @Html.Label("Event type ", htmlAttributes: new { @class = "" })
+                                    <div class="input-group-append">
+                                        <span class="input-group-text"></span>
                                     </div>
-                            <div class="input-group mb-3">
-                                @Html.Label("CNIC ", htmlAttributes: new { @class = "" })
+                                    @Html.DropDownListFor(m => m.eventType, ViewBag.eventType as List<SelectListItem>, "Select event", new { @class = "form-control", required = "required", onchange = "getEventType(this.value)" })
+                                    @Html.ValidationMessageFor(model => model.eventType, "", new { @class = "text-danger" })
 
-
-                                <div class="input-group-append">
-                                    <span class="input-group-text"></span>
                                 </div>
+                                    <div class="input-group mb-3">
+                                        @Html.Label("CNIC ", htmlAttributes: new { @class = "" })
+                                        <div class="input-group-append">
+                                            <span class="input-group-text"></span>
+                                        </div>
+                                        @Html.EditorFor(model => model.cnic, new { htmlAttributes = new { @class = "form-control", required = "required" } })
+                                        @Html.ValidationMessageFor(model => model.cnic, "", new { @class = "text-danger" })
+                                    </div>
 
-                                    @Html.EditorFor(model => model.cnic, new { htmlAttributes = new { @class = "form-control", required = "required" } })
-                                    @Html.ValidationMessageFor(model => model.cnic, "", new { @class = "text-danger" })
 
-                                                        </div>
-                            <div class="input-group mb-3">
-                                @Html.Label("Cell No ", htmlAttributes: new { @class = "" })
+                                    <div class="input-group mb-3">
+                                        @Html.Label("Cell No ", htmlAttributes: new { @class = "" })
 
 
-                                <div class="input-group-append">
-                                    <span class="input-group-text"></span>
-                                </div>
+                                        <div class="input-group-append">
+                                            <span class="input-group-text"></span>
+                                        </div>
 
 
                                         @Html.EditorFor(model => model.cellNo, new { htmlAttributes = new { @class = "form-control", required = "required" } })
                                         @Html.ValidationMessageFor(model => model.cellNo, "", new { @class = "text-danger" })
 
-                                </div>
-                            <div class="input-group mb-3">
-                                @Html.Label("M/S ", htmlAttributes: new { @class = "" })
-
-
-                                <div class="input-group-append">
-                                    <span class="input-group-text"></span>
-                                </div>
-                                @Html.EditorFor(model => model.MS, new { htmlAttributes = new { @class = "form-control", required = "required" } })
-                                @Html.ValidationMessageFor(model => model.MS, "", new { @class = "text-danger" })                         
-                               </div>
-                            <div class="input-group mb-3">
-                                @Html.Label("Event Date ", htmlAttributes: new { @class = "" })
-
-
-                                <div class="input-group-append">
-                                    <span class="input-group-text"></span>
-                                </div>
-
-                                    @Html.TextBoxFor(model => model.EventDate, new { @class = "form-control", @id = "", @type = "Date", required = "required" })
-                                    @Html.ValidationMessageFor(model => model.EventDate, "", new { @class = "text-danger" })
-                             </div>
-                            <div class="input-group mb-3">
-                                @Html.Label("Created Date ", htmlAttributes: new { @class = "" })
-
-
-                                <div class="input-group-append">
-                                    <span class="input-group-text"></span>
-                                </div>
-
-                                @Html.TextBoxFor(model => model.createdDate, new { @class = "form-control", @readonly= "readonly",@id = "", required = "required",@Value=DateTime.UtcNow.ToShortDateString() })
-                                @Html.ValidationMessageFor(model => model.createdDate, "", new { @class = "text-danger" })
-                            </div>
-                            <div class="input-group mb-3">
-                                @Html.Label("No of people ", htmlAttributes: new { @class = "" })
-
-
-                                <div class="input-group-append">
-                                    <span class="input-group-text"></span>
-                                </div>
-                                @Html.EditorFor(model => model.noOfPeople, new { htmlAttributes = new { required = "required", @class = "form-control", @id = "noOfPeople" } })
-                                @Html.ValidationMessageFor(model => model.noOfPeople, "", new { @class = "text-danger" })                            </div>
-                            <div class="input-group mb-3">
-                                @Html.Label("Per Head ", htmlAttributes: new { @class = "" })
-
-
-                                <div class="input-group-append">
-                                    <span class="input-group-text"></span>
-                                </div>
-                                @Html.EditorFor(model => model.perHead, new { htmlAttributes = new { @class = "form-control", @id = "perHead", required = "required" } })
-                                @Html.ValidationMessageFor(model => model.perHead, "", new { @class = "text-danger" })                            </div>
-
-                            <div class="input-group mb-3">
-                                @Html.Label("Total amount ", htmlAttributes: new { @class = "" })
-
-
-                                <div class="input-group-append">
-                                    <span class="input-group-text"></span>
-                                </div>
-                                @Html.EditorFor(model => model.totalAmount, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly", @id = "totalAmount" } })
-                                @Html.ValidationMessageFor(model => model.totalAmount, "", new { @class = "text-danger" })                            </div>
-
-                            <div class="input-group mb-3">
-                                @Html.Label("Tax (5%) ", htmlAttributes: new { @class = "" })
-
-                                <div class="input-group-append">
-                                    <span class="input-group-text"></span>
-                                </div>
-
-                                @Html.EditorFor(model => model.Tax, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly", @id = "tax" } })
-                                @Html.ValidationMessageFor(model => model.Tax, "", new { @class = "text-danger" })
-                             </div>
-
-                            <div class="input-group mb-3">
-                                @Html.Label("Grand Total ", htmlAttributes: new { @class = "" })
-
-
-                                <div class="input-group-append">
-                                    <span class="input-group-text"></span>
-                                </div>
-                                @Html.EditorFor(model => model.grandTotal, new { htmlAttributes = new { @class = "form-control", @id = "grandTotal", required = "required" } })
-                                @Html.ValidationMessageFor(model => model.grandTotal, "", new { @class = "text-danger" })
-                            </div>
-                            <div class="input-group mb-3">
-                                @Html.Label("Advance (20%)", htmlAttributes: new { @class = "" })
-
-
-                                <div class="input-group-append">
-                                    <span class="input-group-text"></span>
-                                </div>
-                                @Html.EditorFor(model => model.advance, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly", @id = "advance" } })
-                                @Html.ValidationMessageFor(model => model.advance, "", new { @class = "text-danger" })                            </div>
-                            <div class="input-group mb-3">
-                                @Html.Label("Received ", htmlAttributes: new { @class = "" })
-
-
-                                <div class="input-group-append">
-                                    <span class="input-group-text"></span>
-                                </div>
-                                @Html.EditorFor(model => model.Received, new { htmlAttributes = new { @class = "form-control", @id = "received", required = "required" } })
-                                @Html.ValidationMessageFor(model => model.Received, "", new { @class = "text-danger" })                            </div>
-                            <div class="input-group mb-3">
-                                @Html.Label("Balance ", htmlAttributes: new { @class = "" })
-
-
-                                <div class="input-group-append">
-                                    <span class="input-group-text"></span>
-                                </div>
-                                @Html.EditorFor(model => model.balance, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly", @id = "balance" } })
-                                @Html.ValidationMessageFor(model => model.balance, "", new { @class = "text-danger" })                            </div>
-                            <div class="input-group mb-3">
-                                @Html.Label("Notes ", htmlAttributes: new { @class = "" })
-
-
-                                <div class="input-group-append">
-                                    <span class="input-group-text"></span>
-                                </div>
-
-                                    @Html.TextAreaFor(model => model.notes, new { @class = "form-control", rows = 5, col = 40 })
-                                    @Html.ValidationMessageFor(model => model.notes, "", new { @class = "text-danger" })
-
-                                                            </div>
-
-                            <br />
-
-                            <div class="input-group mb-3">
-                                <div id="divEmp"></div>
-                                <table id="tblServices" class="table" cellpadding="0" cellspacing="0">
-                                    <thead>
-                                        <tr>
-                                            <th style="width:150px">Price</th>
-                                            <th style="width:150px">Service Name</th>
-                                            <th></th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @foreach (var item in Model.service)
-                                        {
-                                            <tr>
-                                                <td>@item.cost</td>
-                                                <td>@item.service</td>
-                                                <td><input type="button" value="Remove" onclick="Remove(this)" /></td>
-                                            </tr>
-                                        }
-                                    </tbody>
-                                    <tfoot>
-                                        <tr>
-                                            <td><input type="number" id="txtPrice" /></td>
-                                            <td><input type="text" id="txtName" /></td>
-                                            <td><input type="button" id="btnAdd" value="Add" /></td>
-
-                                        </tr>
-                                    </tfoot>
-                                </table>
-                            </div>
-                            <hr />
-                            @*<div class="form-group">
-                                    <div class="custom-control custom-checkbox">
-                                        <input type="checkbox" class="custom-control-input" id="customControlInline">
-                                        <label class="custom-control-label" for="customControlInline">Remember me</label>
                                     </div>
+                                    <div class="input-group mb-3">
+                                        @Html.Label("M/S ", htmlAttributes: new { @class = "" })
+
+
+                                        <div class="input-group-append">
+                                            <span class="input-group-text"></span>
+                                        </div>
+                                        @Html.EditorFor(model => model.MS, new { htmlAttributes = new { @class = "form-control", required = "required" } })
+                                        @Html.ValidationMessageFor(model => model.MS, "", new { @class = "text-danger" })
+                                    </div>
+                                    <div class="input-group mb-3">
+                                        @Html.Label("Event Date ", htmlAttributes: new { @class = "" })
+
+
+                                        <div class="input-group-append">
+                                            <span class="input-group-text"></span>
+                                        </div>
+
+                                        @Html.TextBoxFor(model => model.EventDate, new { @class = "form-control", @id = "", @type = "Date", required = "required" })
+                                        @Html.ValidationMessageFor(model => model.EventDate, "", new { @class = "text-danger" })
+                                    </div>
+                                    <div class="input-group mb-3">
+                                        @Html.Label("Created Date ", htmlAttributes: new { @class = "" })
+
+
+                                        <div class="input-group-append">
+                                            <span class="input-group-text"></span>
+                                        </div>
+
+                                        @Html.TextBoxFor(model => model.createdDate, new { @class = "form-control", @readonly = "readonly", @id = "", required = "required", @Value = DateTime.UtcNow.ToShortDateString() })
+                                        @Html.ValidationMessageFor(model => model.createdDate, "", new { @class = "text-danger" })
+                                    </div>
+                                    <div class="input-group mb-3">
+                                        @Html.Label("No of people ", htmlAttributes: new { @class = "" })
+
+
+                                        <div class="input-group-append">
+                                            <span class="input-group-text"></span>
+                                        </div>
+                                        @Html.EditorFor(model => model.noOfPeople, new { htmlAttributes = new { required = "required", @class = "form-control", @id = "noOfPeople" } })
+                                        @Html.ValidationMessageFor(model => model.noOfPeople, "", new { @class = "text-danger" })
+                                    </div>
+                                    <div class="input-group mb-3">
+                                        @Html.Label("Per Head ", htmlAttributes: new { @class = "" })
+
+
+                                        <div class="input-group-append">
+                                            <span class="input-group-text"></span>
+                                        </div>
+                                        @Html.EditorFor(model => model.perHead, new { htmlAttributes = new { @class = "form-control", @id = "perHead", required = "required" } })
+                                        @Html.ValidationMessageFor(model => model.perHead, "", new { @class = "text-danger" })
+                                    </div>
+
+                                    <div class="input-group mb-3">
+                                        @Html.Label("Total amount ", htmlAttributes: new { @class = "" })
+
+
+                                        <div class="input-group-append">
+                                            <span class="input-group-text"></span>
+                                        </div>
+                                        @Html.EditorFor(model => model.totalAmount, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly", @id = "totalAmount" } })
+                                        @Html.ValidationMessageFor(model => model.totalAmount, "", new { @class = "text-danger" })
+                                    </div>
+
+                                    <div class="input-group mb-3">
+                                        @Html.Label("Tax (5%) ", htmlAttributes: new { @class = "" })
+
+                                        <div class="input-group-append">
+                                            <span class="input-group-text"></span>
+                                        </div>
+
+                                        @Html.EditorFor(model => model.Tax, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly", @id = "tax" } })
+                                        @Html.ValidationMessageFor(model => model.Tax, "", new { @class = "text-danger" })
+                                    </div>
+
+                                    <div class="input-group mb-3">
+                                        @Html.Label("Grand Total ", htmlAttributes: new { @class = "" })
+
+
+                                        <div class="input-group-append">
+                                            <span class="input-group-text"></span>
+                                        </div>
+                                        @Html.EditorFor(model => model.grandTotal, new { htmlAttributes = new { @class = "form-control", @id = "grandTotal", required = "required" } })
+                                        @Html.ValidationMessageFor(model => model.grandTotal, "", new { @class = "text-danger" })
+                                    </div>
+                                    <div class="input-group mb-3">
+                                        @Html.Label("Advance (20%)", htmlAttributes: new { @class = "" })
+
+
+                                        <div class="input-group-append">
+                                            <span class="input-group-text"></span>
+                                        </div>
+                                        @Html.EditorFor(model => model.advance, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly", @id = "advance" } })
+                                        @Html.ValidationMessageFor(model => model.advance, "", new { @class = "text-danger" })
+                                    </div>
+
+                                    <div class="input-group mb-3">
+                                        @Html.Label("Received ", htmlAttributes: new { @class = "" })
+
+
+                                        <div class="input-group-append">
+                                            <span class="input-group-text"></span>
+                                        </div>
+                                        @Html.EditorFor(model => model.Received, new { htmlAttributes = new { @class = "form-control", @id = "received", required = "required" } })
+                                        @Html.ValidationMessageFor(model => model.Received, "", new { @class = "text-danger" })
+                                    </div>
+                                    <div class="input-group mb-3">
+                                        @Html.Label("Balance ", htmlAttributes: new { @class = "" })
+
+
+                                        <div class="input-group-append">
+                                            <span class="input-group-text"></span>
+                                        </div>
+                                        @Html.EditorFor(model => model.balance, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly", @id = "balance" } })
+                                        @Html.ValidationMessageFor(model => model.balance, "", new { @class = "text-danger" })
+                                    </div>
+
+                                    <div class="input-group mb-3">
+                                        @Html.Label("Notes ", htmlAttributes: new { @class = "" })
+
+
+                                        <div class="input-group-append">
+                                            <span class="input-group-text"></span>
+                                        </div>
+
+                                        @Html.TextAreaFor(model => model.notes, new { @class = "form-control", rows = 5, col = 40 })
+                                        @Html.ValidationMessageFor(model => model.notes, "", new { @class = "text-danger" })
+                                    </div>
+                                    <div class="input-group mb-3">
+
+                                        <br />
+                                        @Html.EditorFor(model => model.menus)
+                                        @Html.ValidationMessageFor(model => model.notes, "", new { @class = "text-danger" })
+                                    </div>
+
+                                    <br />
+
+                                        <div class="input-group mb-3">
+                                            <div id="divEmp"></div>
+                                            <table id="tblServices" class="table" cellpadding="0" cellspacing="0">
+                                                <thead>
+                                                    <tr>
+                                                        <th style="width:150px">Price</th>
+                                                        <th style="width:150px">Service Name</th>
+                                                        <th></th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @foreach (var item in Model.service)
+                                                    {
+                                                        <tr>
+                                                            <td>@item.cost</td>
+                                                            <td>@item.service</td>
+                                                            <td><input type="button" value="Remove" onclick="Remove(this)" /></td>
+                                                        </tr>
+                                                    }
+                                                </tbody>
+                                                <tfoot>
+                                                    <tr>
+                                                        <td><input type="number" id="txtPrice" /></td>
+                                                        <td><input type="text" id="txtName" /></td>
+                                                        <td><input type="button" id="btnAdd" value="Add" /></td>
+
+                                                    </tr>
+                                                </tfoot>
+                                            </table>
+                                        </div>
+                                        <hr />
+                                        @*<div class="form-group">
+                                <div class="custom-control custom-checkbox">
+                                    <input type="checkbox" class="custom-control-input" id="customControlInline">
+                                    <label class="custom-control-label" for="customControlInline">Remember me</label>
                                 </div>
-                            *@
-                            <div class="d-flex justify-content-center mt-3 login_container">
-                                <button type="submit" name="button" id="btnSave" class="btn login_btn">SUBMIT</button>
                             </div>
-                        }
+                                        *@
+                                        <div class="d-flex justify-content-center mt-3 login_container">
+                                            <button type="submit" name="button" id="btnSave" class="btn login_btn">SUBMIT</button>
+                                        </div>
+                            }
+                        </div>
+
+                        @*<div class="mt-4">
+                <div class="d-flex justify-content-center links">
+                    Don't have an account? <a href="/Home/About" class="ml-2">Sign Up</a>
+                </div>
+                <div class="d-flex justify-content-center links">
+                    <a href="#">Forgot your password?</a>
+                </div>
+            </div>*@
                     </div>
 
-                    @*<div class="mt-4">
-                            <div class="d-flex justify-content-center links">
-                                Don't have an account? <a href="/Home/About" class="ml-2">Sign Up</a>
-                            </div>
-                            <div class="d-flex justify-content-center links">
-                                <a href="#">Forgot your password?</a>
-                            </div>
-                        </div>*@
                 </div>
             </div>
         </div>
     </div>
 </div>
+
 <script>
     var customer = {};
     var customers = new Array();
@@ -744,5 +768,22 @@
             received = $('#received').val();
             $('#balance').val(grandTotals - received);
             $('#advance').val(grandTotals * 0.2);
-       }
+        }
+
+        function getEventType(data) {
+            debugger;
+            if (data == "Day") {
+
+                document.getElementById("eventTypeColor").style.backgroundColor = "#60a3bc";
+
+              
+                
+            } else if (data == "Night") {
+                $("label").css('color', "white");
+                $("table").css('color', "white");
+              //  document.getElementsByTagName("label").style.color = "white";
+               
+                document.getElementById("eventTypeColor").style.backgroundColor = "#272929";
+            }
+        }
 </script>

@@ -17,12 +17,8 @@ namespace EventManagement.Models
         [EmailAddress]
 
         public string email { get; set; }
-        [ForeignKey("role")]
-        public int roleId{ get; set; }
-        public virtual Role role { get; set; }
-        [ForeignKey("gender")]
-        public int genderId { get; set; }
-        public virtual Gender gender { get; set; }
-        public ICollection<Event> events { get; set; }
+
+        public string gender{ get; set; }
+     
     }
 }

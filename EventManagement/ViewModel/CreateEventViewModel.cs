@@ -48,12 +48,13 @@ namespace EventManagement.ViewModel
         [Required]
         public DateTime EventTime { get; set; }
         public List<Services> service { get; set; }
-
-        public List<CheckBoxListItem> Services { get; set; }
+        public List<Menu> menusList { get; set; }
+        public List<CheckBoxListItem> menus { get; set; }
         public string file { get; set; }
+        public string eventType {get;set;}
         public CreateEventViewModel()
         {
-            Services = new List<CheckBoxListItem>();
+            menus = new List<CheckBoxListItem>();
         }
     }
 }

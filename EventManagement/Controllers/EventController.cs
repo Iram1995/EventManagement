@@ -22,20 +22,26 @@ namespace EventManagement.Controllers
 
         public ActionResult Create()
         {
-            var services = dbcontext.services.ToList();
+            var services = dbcontext.menus.ToList();
             var servicescheckBoxListItems = new List<CheckBoxListItem>();
-            /*  foreach (var item in services)
+              foreach (var item in services)
               {
                   servicescheckBoxListItems.Add(new CheckBoxListItem()
                   {
-                      ID = item.serviceId,
-                      Display = item.service,
-                      IsChecked = false,
-                      price = item.cost//On the add view, no genres are selected by default
+                      ID = item.menuId,
+                      Display = item.menu,
+                      IsChecked = false,                      
                   });
-              }*/
+              }
+
+            var eventType = new List<SelectListItem>
+            {
+                new SelectListItem{ Text="Day", Value = "Day" },
+                new SelectListItem{ Text="Night", Value = "Night" },
+            };
+            ViewBag.eventType = eventType;
             CreateEventViewModel viewModel = new CreateEventViewModel();
-            // viewModel.Services = servicescheckBoxListItems;
+            viewModel.menus = servicescheckBoxListItems;
             viewModel.service = new List<Services>();
             return View(viewModel);
         }
@@ -57,12 +63,14 @@ namespace EventManagement.Controllers
         {
             try
             {
-                var selectedAttractions = viewModel.Services.Where(x => x.IsChecked).ToList();
+                var selectedAttractions = viewModel.menus.Where(x => x.IsChecked).ToList();
+                var menus = viewModel.menus.Where(m => m.IsChecked == true);
+                
                 Event events = new Event();
                 events.refNo = viewModel.refNo;
                 events.cnic = viewModel.cnic;
                 events.EventDate = viewModel.EventDate;
-
+                events.eventType = viewModel.eventType;
                 events.createdDate = DateTime.UtcNow;
                 events.modifiedDate = DateTime.UtcNow;
                 events.modifiedBy = 1;
@@ -82,6 +90,14 @@ namespace EventManagement.Controllers
                 dbcontext.events.Add(events);
                 dbcontext.SaveChanges();
                 var eventId = dbcontext.events.OrderByDescending(m => m.eventId).FirstOrDefault().eventId;
+                foreach (var item in menus) {
+                    MenuEventRelationship menu = new MenuEventRelationship();
+                    menu.eventId = eventId;
+                    menu.isActive = true;
+                    menu.menuId = item.ID;
+                    dbcontext.menuEventRelationship.Add(menu);
+                    dbcontext.SaveChanges();
+                }
                 return eventId.ToString();
             }
             catch (Exception ex)
@@ -130,11 +146,12 @@ namespace EventManagement.Controllers
             {
 
                 viewModel.EventDate = events.EventDate;
-
+                viewModel.createdDate = events.createdDate;
                 viewModel.advance = events.advance;
                 viewModel.balance = events.balance;
                 viewModel.cellNo = events.cellNo;
                 viewModel.cnic = events.cnic;
+                viewModel.eventType = events.eventType ;
                 viewModel.grandTotal = events.grandTotal;
                 viewModel.MS = events.MS;
                 viewModel.noOfPeople = events.noOfPeople;
@@ -144,8 +161,10 @@ namespace EventManagement.Controllers
                 viewModel.refNo = events.refNo;
                 viewModel.totalAmount = events.totalAmount;
                 viewModel.eventId = events.eventId;
+                viewModel.menusList = dbcontext.menuEventRelationship.Where(m => m.eventId == id && m.isActive==true).Select(m=>m.menu).ToList();
                 viewModel.service = dbcontext.services.Where(m => m.event_Id == events.eventId).ToList();
                 return View(viewModel);
+
             }
 
             catch (Exception ex) {
@@ -174,9 +193,20 @@ namespace EventManagement.Controllers
             Event events = dbcontext.events.Where(m => m.eventId == id).SingleOrDefault();
             try
             {
-
+                var menus = dbcontext.menus.ToList();
+                var servicescheckBoxListItems = new List<CheckBoxListItem>();
+                foreach (var item in menus)
+                {
+                    servicescheckBoxListItems.Add(new CheckBoxListItem()
+                    {
+                        ID = item.menuId,
+                        Display = item.menu,
+                        IsChecked = dbcontext.menuEventRelationship.Where(m=>m.eventId==id && m.menuId==item.menuId).Count()>0? dbcontext.menuEventRelationship.Where(m => m.eventId == id && m.menuId == item.menuId).FirstOrDefault().isActive: false,
+                    });
+                }
+                viewModel.menus = servicescheckBoxListItems;
                 viewModel.EventDate = events.EventDate;
-
+                viewModel.eventType = events.eventType;
                 viewModel.advance = events.advance;
                 viewModel.balance = events.balance;
                 viewModel.cellNo = events.cellNo;
@@ -191,7 +221,14 @@ namespace EventManagement.Controllers
                 viewModel.totalAmount = events.totalAmount;
                 viewModel.eventId = events.eventId;
                 var services = dbcontext.services.ToList();
+
                 viewModel.service = dbcontext.services.Where(m => m.event_Id == events.eventId).ToList();
+                var eventType = new List<SelectListItem>
+            {
+                new SelectListItem{ Text="Day", Value = "Day" },
+                new SelectListItem{ Text="Night", Value = "Night" },
+            };
+                ViewBag.eventType = eventType;
                 /* var servicescheckBoxListItems = new List<CheckBoxListItem>();
                  foreach (var item in services)
                  {
@@ -218,10 +255,12 @@ namespace EventManagement.Controllers
     
         public string SaveEditEvent(CreateEventViewModel events)
         {
+            var menus = events.menus.Where(m => m.IsChecked == true);
 
             Event viewModel = dbcontext.events.Where(m => m.eventId == events.eventId).FirstOrDefault();
             try
             {
+                viewModel.eventId = events.eventId;
                 viewModel.EventDate = events.EventDate;
                 viewModel.advance = events.advance;
                 viewModel.balance = events.balance;
@@ -237,9 +276,45 @@ namespace EventManagement.Controllers
                 viewModel.totalAmount = events.totalAmount;
                 viewModel.balance = events.balance;
                 viewModel.isActive = true;
+                viewModel.eventType = events.eventType;
                 dbcontext.Entry(viewModel).State = EntityState.Modified;
                 dbcontext.SaveChanges();
 
+                var menuList = dbcontext.menuEventRelationship.Where(m => m.eventId == viewModel.eventId).ToList();
+
+                foreach (var item in menuList)
+                {
+                    item.isActive = false;
+                    dbcontext.Entry(item).State = EntityState.Modified;
+                }
+                dbcontext.SaveChanges();
+
+
+                foreach (var item in menus)
+                {
+                    var menu = menuList.Where(m => m.menuId == item.ID);
+                    if (menu.Count() > 0)
+                    {
+                        var firstMenu = menu.FirstOrDefault();
+                        firstMenu = dbcontext.menuEventRelationship.Find(firstMenu.id);
+                        firstMenu.isActive = true;
+                        dbcontext.Entry(firstMenu).State = EntityState.Modified;
+                        dbcontext.SaveChanges();
+                    }
+                    else
+                    {
+                        MenuEventRelationship menuEvent = new MenuEventRelationship();
+                        menuEvent.isActive = true;
+                        menuEvent.menuId = item.ID;
+                        menuEvent.eventId = viewModel.eventId;
+                        
+                        dbcontext.menuEventRelationship.Add(menuEvent);
+                        dbcontext.SaveChanges();
+                    }
+                }
+
+
+                
                 return events.eventId.ToString();
 
             }

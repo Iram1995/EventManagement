@@ -47,7 +47,7 @@ namespace EventManagement.Controllers.api
                 n.cnic,
                 n.createdDate,
                 n.EventDate,
-                
+                n.eventType,
                 n.grandTotal,
                 n.MS,
                 n.noOfPeople,

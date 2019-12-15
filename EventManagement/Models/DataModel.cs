@@ -18,10 +18,13 @@ namespace EventManagement.Models
         {
         }
         public DbSet<User> users { get; set; }
-        public DbSet<Role> roles { get; set; }
-        public DbSet<Gender> genders { get; set; }
+       
         public DbSet<Event> events { get; set; }
         public DbSet<Services> services { get; set; }
+
+        public DbSet<Menu> menus { get; set; }
+        public DbSet<MenuEventRelationship> menuEventRelationship { get; set; }
+
 
     }
 

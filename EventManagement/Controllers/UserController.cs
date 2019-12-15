@@ -102,8 +102,7 @@ namespace EventManagement.Controllers
         public ActionResult CreateUser()
         {
             UserViewModel viewModel = new UserViewModel();
-            viewModel.roles = dbcontext.roles.ToList();
-            viewModel.genders = dbcontext.genders.ToList();
+         
             return View(viewModel);
         }
        
@@ -117,8 +116,7 @@ namespace EventManagement.Controllers
                 user.lastName = viewModel.lastName;
                // user.genderId = viewModel.GenderId;
                // user.roleId = viewModel.RoleId;
-                user.genderId = dbcontext.genders.FirstOrDefault().genderId;
-                user.roleId = dbcontext.roles.OrderByDescending(m=>m.roleId).FirstOrDefault().roleId;
+                             
                 user.email = viewModel.Email;
                 user.password = viewModel.password;
                //   user.roleId = viewModel.RoleId;

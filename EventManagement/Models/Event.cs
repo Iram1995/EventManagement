@@ -24,6 +24,7 @@ namespace EventManagement.Models
         public DateTime EventDate { get; set; }
         
         public string notes { get; set; }
+        public string eventType { get; set; }
         public int noOfPeople { get; set; }
         public double perHead { get; set; }
         public double totalAmount { get; set; }
@@ -32,7 +33,7 @@ namespace EventManagement.Models
         public double Received { get; set; }
         public double balance { get; set; }
         public bool isActive { get; set; }
-
+        public ICollection<MenuEventRelationship> MenuEventRelationship { get; set; }
         public ICollection<Services> Services{ get; set; }
     }
 }
