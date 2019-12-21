@@ -71,8 +71,8 @@ namespace EventManagement.Controllers
                 events.cnic = viewModel.cnic;
                 events.EventDate = viewModel.EventDate;
                 events.eventType = viewModel.eventType;
-                events.createdDate = DateTime.UtcNow;
-                events.modifiedDate = DateTime.UtcNow;
+                events.createdDate =System.DateTime.Now;
+                events.modifiedDate = System.DateTime.Now;
                 events.modifiedBy = 1;
                 events.createdBy = 1;
                 //events.ServiceEvents = viewModel.Services;
@@ -144,8 +144,8 @@ namespace EventManagement.Controllers
             CreateEventViewModel viewModel = new CreateEventViewModel();
             try
             {
-
-                viewModel.EventDate = events.EventDate;
+                viewModel.Tax = events.totalAmount * 0.05;
+                viewModel.eventDate = events.EventDate.ToShortDateString();
                 viewModel.createdDate = events.createdDate;
                 viewModel.advance = events.advance;
                 viewModel.balance = events.balance;

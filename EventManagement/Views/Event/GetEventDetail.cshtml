@@ -88,15 +88,7 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.EventDate)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.notes)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.notes)
+            @Html.DisplayFor(model => model.eventDate)
         </dd>
 
         <dt>
@@ -122,7 +114,36 @@
         <dd>
             @Html.DisplayFor(model => model.totalAmount)
         </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Tax) 5%
+        </dt>
 
+        <dd>
+            @Html.DisplayFor(model=>model.Tax )
+        </dd>
+        @if (Model.service.Count() > 0)
+        {
+            <h4>Service Details</h4>
+            <table>
+                <tr>
+                    <th>Name</th>
+                    <th>Price</th>
+
+                </tr>
+                @foreach (var item in Model.service)
+                {
+
+                    <tr>
+                        <td>@item.service</td>
+                        <td>@item.cost</td>
+                    </tr>
+
+
+
+                }
+            </table>
+
+        }
         <dt>
             @Html.DisplayNameFor(model => model.grandTotal)
         </dt>
@@ -132,7 +153,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.advance)
+            @Html.DisplayNameFor(model => model.advance) 20%
         </dt>
 
         <dd>
@@ -154,30 +175,15 @@
         <dd>
             @Html.DisplayFor(model => model.balance)
         </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.notes)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.notes)
+        </dd>
     </dl>
-        @if(Model.service.Count() > 0)
-        {
-            <h4>Service Details</h4>
-            <table>
-                <tr>
-                    <th>Name</th>
-                    <th>Price</th>
-
-                </tr>
-                @foreach (var item in Model.service)
-                {
-                  
-                        <tr>
-                          <td>@item.service</td>
-                          <td>@item.cost</td>
-                        </tr>
-
-                   
-
-                }
-            </table>
-
-        }
+        
     @if (Model.menusList.Count() > 0)
     {
         <h4>Menu Details</h4>

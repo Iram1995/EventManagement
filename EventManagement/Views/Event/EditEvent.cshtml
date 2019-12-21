@@ -594,7 +594,7 @@
         perHead = $('#perHead').val() == undefined ? 0 : $('#perHead').val();
         totalAmount=noOfPeople*perHead;
         $('#totalAmount').val(totalAmount);
-        var tax=0.05 * totalAmount;
+        var tax = 0.05 * totalAmount;
         $('#tax').val(tax);
         grandTotal = totalAmount + serviceSum;
         $('#grandTotal').val(grandTotal+tax);

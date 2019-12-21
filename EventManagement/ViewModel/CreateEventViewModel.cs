@@ -45,6 +45,7 @@ namespace EventManagement.ViewModel
         public double Received { get; set; }
         [Required]
         public double balance { get; set; }
+        public string eventDate { get; set; }
         [Required]
         public DateTime EventTime { get; set; }
         public List<Services> service { get; set; }
