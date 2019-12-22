@@ -343,8 +343,8 @@
                                                                 <span class="input-group-text"></span>
                                                             </div>
 
-                                                            @Html.TextBoxFor(model => model.EventDate, "{0:yyyy-MM-dd}", new { @class = "form-control", @id = "", @type = "Date", required = "required" })
-                                                            @Html.ValidationMessageFor(model => model.EventDate, "", new { @class = "text-danger" })
+                                                            @Html.TextBoxFor(model => model.EventDateTime, "{0:yyyy-MM-dd}", new { @class = "form-control", @id = "", @type = "Date", required = "required" })
+                                                            @Html.ValidationMessageFor(model => model.EventDateTime, "", new { @class = "text-danger" })
                                                         </div>
 
                                                         <div class="input-group mb-3">
@@ -355,7 +355,7 @@
                                                                 <span class="input-group-text"></span>
                                                             </div>
 
-                                                            @Html.TextBoxFor(model => model.createdDate, "{0:yyyy-MM-dd}", new { @class = "form-control", @id = "", @type = "Date", required = "required" })
+                                                            @Html.TextBoxFor(model => model.createdDate, "{0:yyyy-MM-dd}", new { @class = "form-control", @id = "", @type = "Date", required = "required" , @readonly = "readonly" })
                                                             @Html.ValidationMessageFor(model => model.createdDate, "", new { @class = "text-danger" })
                                                         </div>
 

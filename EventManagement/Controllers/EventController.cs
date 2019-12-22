@@ -69,7 +69,7 @@ namespace EventManagement.Controllers
                 Event events = new Event();
                 events.refNo = viewModel.refNo;
                 events.cnic = viewModel.cnic;
-                events.EventDate = viewModel.EventDate;
+                events.EventDate = viewModel.EventDateTime;
                 events.eventType = viewModel.eventType;
                 events.createdDate =System.DateTime.Now;
                 events.modifiedDate = System.DateTime.Now;
@@ -205,7 +205,8 @@ namespace EventManagement.Controllers
                     });
                 }
                 viewModel.menus = servicescheckBoxListItems;
-                viewModel.EventDate = events.EventDate;
+                viewModel.EventDateTime = events.EventDate;
+                viewModel.createdDate = events.createdDate;
                 viewModel.eventType = events.eventType;
                 viewModel.advance = events.advance;
                 viewModel.balance = events.balance;
@@ -261,7 +262,7 @@ namespace EventManagement.Controllers
             try
             {
                 viewModel.eventId = events.eventId;
-                viewModel.EventDate = events.EventDate;
+                viewModel.EventDate = events.EventDateTime;
                 viewModel.advance = events.advance;
                 viewModel.balance = events.balance;
                 viewModel.cellNo = events.cellNo;

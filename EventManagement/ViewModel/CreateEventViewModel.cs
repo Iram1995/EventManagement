@@ -26,7 +26,7 @@ namespace EventManagement.ViewModel
         public int createdBy { get; set; }
         public int modifiedBy { get; set; }
         public DateTime modifiedDate { get; set; }
-        public DateTime EventDate { get; set; }
+        public DateTime EventDateTime { get; set; }
         [Required]
         public string notes { get; set; }
         [Required]
